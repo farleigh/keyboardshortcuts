@@ -1,0 +1,46 @@
+body {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 1.2em;
+}
+
+h1 {
+	font-size:1.3em;
+}
+
+.th, td {
+	padding: 5px;
+}
+
+.th {
+	text-align: center;
+	color: dark-red;
+}
+
+select, input {
+	margin-bottom: 0;
+}
+
+.container {
+	width: 52em;
+}
+    
+.button.button-small {
+	margin: 0;
+	padding: 0 5px 5px 5px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+}
+
+select.extra-wide, input.extra-wide {
+	width: 18em;
+}
+
+select.extra-wide, input.wide {
+	width: 12em;
+}
+
+select.extra-wide, input.thin {
+	width: 8em;
+}
