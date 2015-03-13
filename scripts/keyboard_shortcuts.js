@@ -9,9 +9,11 @@
 							+ value.sequence + " for action " + value.action);
 					if (value.action == "click") {
 						var result = $(value.query);
-						result && result.length > 0 && result.first().click();
+						result && result.length > 0 && result.first().trigger("click");
 					} else if (value.action == "right-click") {
-						$(value.query) && $(value.query).trigger({
+						var result = $(value.query);
+						console.log(result);
+						result && result.length > 0 && result.first().trigger({
 							type : "mousedown",
 							which : 3
 						}).trigger({

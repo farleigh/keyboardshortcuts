@@ -27,13 +27,17 @@
 	});
 
 	keyShorts.controller("shortcutConfigurationController", [ "$scope",
-			"storage",
-			function($scope, storage) {
-				$scope.actions = [{ label: "click", value: "click"}, { label: "right click", value: "right-click"}];		
+			"storage", function($scope, storage) {
+				$scope.actions = [ {
+					label : "click",
+					value : "click"
+				}, {
+					label : "right click",
+					value : "right-click"
+				} ];
 				$scope.shortcutKeys = undefined;
 				storage.get("configuration").then(function(value) {
 					$scope.shortcutKeys = value;
-					console.log(value);
 					if (!$scope.shortcutKeys || !$scope.shortcutKeys.length) {
 						$scope.shortcutKeys = new Array();
 					}
@@ -59,5 +63,7 @@
 				$scope.save = function() {
 					storage.set("configuration", $scope.shortcutKeys);
 				};
+
+				$scope.$watch("shortcutKeys", $scope.save, true);
 			} ]);
 })();

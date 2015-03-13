@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <title>Configure Keyboard Shortcuts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//fonts.googleapis.com/css?family=Raleway:300,400,700"
-	rel="stylesheet">
 <link href="css/normalize.css" rel="stylesheet">
 <link href="css/skeleton.css" rel="stylesheet">
 <link href="css/popup.css" rel="stylesheet">
@@ -13,11 +11,23 @@
 <body data-ng-app="keyShorts">
 	<section style="margin: 2em;" class="container"
 		data-ng-controller="shortcutConfigurationController">
-		<h5>configure keyboard shortcuts</h5>
-		<p>Add new keyboard shortcuts by setting a key sequence, a query
-			to find the sequence and an action to perform.</p>
-		<div class="u-pull-right">
-			<button class="button button-small" data-ng-click="addKey()">+</button>
+		<div>
+			<div class="u-pull-left" style="margin-right: 1em">
+				<img src="images/icon64.png" alt="KS" />
+			</div>
+			<div style="padding-top: 1em;">
+				<h5>keyboard shortcuts</h5>
+			</div>
+			<div class="u-cf"></div>
+		</div>
+		<p>Add new keyboard shortcuts by setting a url pattern, key
+			sequence, a query to find the sequence and an action to perform. Url
+			patterns follow js regex (e.g. ^https?://(www\.)?google\.com.*). Key
+			sequences consist of short name of key delimited by + (e.g.
+			alt+shift+s). Element query follows jquery's selector syntax.</p>
+		<div>
+			<button class="button button-primary button-small"
+				data-ng-click="addKey()">+</button>
 		</div>
 		<div>
 			<table>
@@ -31,7 +41,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="key in shortcutKeys">
+					<tr
+						data-ng-repeat="key in shortcutKeys track by $index | orderBy: ['key.url_expression', 'key.sequence']">
 						<td><input class="extra-wide" type="text"
 							name="url_expression" data-ng-model="key.urlExpression" /></td>
 						<td><input class="thin" type="text" name="key_sequence"
@@ -39,7 +50,8 @@
 						<td><input class="wide" type="text" name="query"
 							data-ng-model="key.query" /></td>
 						<td><select class="thin" name="action"
-							data-ng-model="key.action" data-ng-options="action.value as action.label for action in actions">
+							data-ng-model="key.action"
+							data-ng-options="action.value as action.label for action in actions">
 						</select></td>
 						<td>
 							<button class="button button-small"
@@ -49,9 +61,10 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="u-pull-left">
-			<button class="button-primary" data-ng-click="save()">Save</button>
-		</div>
+		<footer>
+			<a href="https://github.com/farleigh/keyboardshortcuts" target="_new">More
+				Information</a>
+		</footer>
 	</section>
 	<script src="scripts/3p/angular.min.js"></script>
 	<script src="scripts/popup.js"></script>

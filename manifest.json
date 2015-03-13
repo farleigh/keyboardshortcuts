@@ -18,5 +18,8 @@
     "default_icon": "images/favicon.png",
     "default_popup": "popup.html"
   },
+  "icons": { "32": "images/favicon.png",
+             "48": "images/icon48.png",
+             "64": "images/icon64.png" },
   "manifest_version": 2
 }
