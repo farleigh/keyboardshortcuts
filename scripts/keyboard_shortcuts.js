@@ -9,16 +9,23 @@
 							+ value.sequence + " for action " + value.action);
 					if (value.action == "click") {
 						var result = $(value.query);
-						result && result.length > 0 && result.first().trigger("click");
+						console.log(result);
+						if (result && result.length > 0) {
+							$(":focus").blur();
+							console.log(result);
+							result.first().trigger("click");
+						}
 					} else if (value.action == "right-click") {
 						var result = $(value.query);
-						console.log(result);
-						result && result.length > 0 && result.first().trigger({
-							type : "mousedown",
-							which : 3
-						}).trigger({
-							type : "mouseup"
-						});
+						if (result && result.length > 0) {
+							$(":focus").blur();
+							result.first().trigger({
+								type : "mousedown",
+								which : 3
+							}).trigger({
+								type : "mouseup"
+							});
+						}
 					}
 				});
 	};
