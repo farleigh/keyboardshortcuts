@@ -35,24 +35,19 @@
 					<tr>
 						<th>url expression</th>
 						<th>keys</th>
-						<th>element query</th>
-						<th>action</th>
+						<th>query expression</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr
 						data-ng-repeat="key in shortcutKeys track by $index | orderBy: ['key.url_expression', 'key.sequence']">
-						<td><input class="extra-wide" type="text"
+						<td><input class="wide" type="text"
 							name="url_expression" data-ng-model="key.urlExpression" /></td>
 						<td><input class="thin" type="text" name="key_sequence"
 							data-ng-model="key.sequence" /></td>
-						<td><input class="wide" type="text" name="query"
-							data-ng-model="key.query" /></td>
-						<td><select class="thin" name="action"
-							data-ng-model="key.action"
-							data-ng-options="action.value as action.label for action in actions">
-						</select></td>
+						<td><input class="extra-wide" type="text" name="query"
+							data-ng-model="key.expression" /></td>
 						<td>
 							<button class="button button-small"
 								data-ng-click="removeKey($event, key)">&ndash;</button>

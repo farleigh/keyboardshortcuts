@@ -34,11 +34,11 @@ select, input {
 }
 
 select.extra-wide, input.extra-wide {
-	width: 18em;
+	width: 24em;
 }
 
 select.extra-wide, input.wide {
-	width: 12em;
+	width: 18em;
 }
 
 select.extra-wide, input.thin {

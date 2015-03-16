@@ -28,18 +28,11 @@
 
 	keyShorts.controller("shortcutConfigurationController", [ "$scope",
 			"storage", function($scope, storage) {
-				$scope.actions = [ {
-					label : "click",
-					value : "click"
-				}, {
-					label : "right click",
-					value : "right-click"
-				} ];
 				$scope.shortcutKeys = undefined;
 				storage.get("configuration").then(function(value) {
 					$scope.shortcutKeys = value;
 					if (!$scope.shortcutKeys || !$scope.shortcutKeys.length) {
-						$scope.shortcutKeys = new Array();
+						$scope.shortcutKeys = [];
 					}
 
 				});
@@ -48,8 +41,7 @@
 					$scope.shortcutKeys.push({
 						urlExpression : "",
 						sequence : "",
-						query : "",
-						action : $scope.actions[0].value
+						expression : ""
 					});
 				};
 
