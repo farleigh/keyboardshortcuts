@@ -5,7 +5,6 @@
 		var result = $(query);
 		if (result && result.length > 0) {
 			$(":focus").blur();
-			console.log(result);
 			result.first().trigger("click");
 			return true;
 		}
@@ -62,8 +61,6 @@
 			return [];
 		}
 		var unparsedExpressions = expression.split(/;\s*/);
-		console.log("Splitting expressions");
-		console.log(unparsedExpressions);
 		var parsedExpressions = [];
 		$.each(unparsedExpressions, function(index, value) {
 			parsedExpressions.push(parseSingleExpression(value));
@@ -98,7 +95,7 @@
 			return true;
 		}
 		var expression = expressions.shift();
-		console.log("KeyboardShortcuts > Executing expression " + expression);
+		console.log("KeyboardShortcuts > Executing expression " + expression.operator);
 		var returnVal = true;
 		if (expression.operator === "click") {
 			returnVal = leftClick(expression.query);
@@ -120,7 +117,6 @@
 		$(document).bind('keydown', value.sequence, function() {
 			console.log("KeyboardShortcuts > key invoked " + value.sequence);
 			var expressions = parseQueryExpression(value.expression);
-			console.log(expressions);
 			if (expressions) {
 				execute(expressions);
 			}
