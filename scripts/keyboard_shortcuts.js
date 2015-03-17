@@ -73,17 +73,21 @@
 
 	var parseSingleExpression = function(expression) {
 		console.log("KeyboardShortcuts > Parsing expression " + expression);
-		var regex = /(\w+\-*\w*)\(\"(.+)\",?\s*(\d+)?,?\s*(\d+)?\)/i;
+		var regex = /([-\w]+)\s*\(\s*\"(.+)\"\s*(?:(?:,\s*\"([-\w]+)\")|(?:(?:,\s*(\d+)\s*)?(?:,\s*(\d+)\s*)?))\s*\)/i;
 		var matches = regex.exec(expression);
 		var parsedExpression = {};
 		if (matches && matches.length >= 2) {
 			parsedExpression.operator = matches[1];
 			parsedExpression.query = matches[2];
-			if (matches.length > 3 && matches[3] != undefined) {
-				parsedExpression.maxWaitTime = matches[3];
+			if (matches.length > 3 && matches[3] !== undefined) {
+				if (!parseInt(matches[3])) {
+					parsedExpression.attribute = matches[3];
+				} else {
+					parsedExpression.maxWaitTime = parseInt(matches[3]);
+				}
 			}
-			if (matches.length > 4 && matches[4] != undefined) {
-				parsedExpression.minWaitTime = matches[4];
+			if (matches.length > 4 && matches[4] !== undefined) {
+				parsedExpression.minWaitTime = parseInt(matches[4]);
 			}
 		}
 		return parsedExpression;
