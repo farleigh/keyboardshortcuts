@@ -20,12 +20,13 @@
 			</div>
 			<div class="u-cf"></div>
 		</div>
-		<p>Add new keyboard shortcuts by setting a url pattern, key
-			sequence, a query to find the sequence and an action to perform. Url
-			patterns follow js regex (e.g. ^https?://(www\.)?google\.com.*). Key
-			sequences consist of short name of key delimited by + (e.g.
-			alt+shift+s). Element query follows jquery's selector syntax.</p>
-		<div>
+            Add new keyboard shortcuts by setting a url pattern, key sequence,
+            and a sequence of operations. Url patterns follow js regex (e.g.
+            ^https?://(www\.)?google\.com.*). Key sequences consist of short name
+            of key delimited by + (e.g. alt+shift+s). Action expressions are a
+            sequence of operations to accomplish an action. See <a
+                href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">Wiki</a> for additional details.
+		<div style="margin-top: 1em;">
 			<button class="button button-primary button-small"
 				data-ng-click="addKey()">+</button>
 		</div>
@@ -35,7 +36,7 @@
 					<tr>
 						<th>url expression</th>
 						<th>keys</th>
-						<th>query expression</th>
+						<th>action expression</th>
 						<th></th>
 					</tr>
 				</thead>

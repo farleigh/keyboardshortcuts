@@ -1,6 +1,6 @@
 {
   "name": "KeyboardShortcuts",
-  "version": "0.1",
+  "version": "0.2",
   "background": {
     "persistent": false,
     "page": "background.html"
@@ -21,6 +21,7 @@
   },
   "icons": { "32": "images/favicon.png",
              "48": "images/icon48.png",
-             "64": "images/icon64.png" },
+             "64": "images/icon64.png"
+             "128": "images/icon128.png" },
   "manifest_version": 2
 }
