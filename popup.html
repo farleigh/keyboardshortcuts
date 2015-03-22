@@ -9,60 +9,52 @@
 <link href="css/popup.css" rel="stylesheet">
 </head>
 <body data-ng-app="keyShorts">
-	<section style="margin: 2em;" class="container"
-		data-ng-controller="shortcutConfigurationController">
-		<div>
-			<div class="u-pull-left" style="margin-right: 1em">
-				<img src="images/icon64.png" alt="KS" />
-			</div>
-			<div style="padding-top: 1em;">
-				<h5>keyboard shortcuts</h5>
-			</div>
-			<div class="u-cf"></div>
-		</div>
-            Add new keyboard shortcuts by setting a url pattern, key sequence,
-            and a sequence of operations. Url patterns follow js regex (e.g.
-            ^https?://(www\.)?google\.com.*). Key sequences consist of short name
-            of key delimited by + (e.g. alt+shift+s). Action expressions are a
-            sequence of operations to accomplish an action. See <a
-                href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">Wiki</a> for additional details.
-		<div style="margin-top: 1em;">
-			<button class="button button-primary button-small"
-				data-ng-click="addKey()">+</button>
-		</div>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>url expression</th>
-						<th>keys</th>
-						<th>action expression</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						data-ng-repeat="key in shortcutKeys track by $index | orderBy: ['key.url_expression', 'key.sequence']">
-						<td><input class="wide" type="text"
-							name="url_expression" data-ng-model="key.urlExpression" /></td>
-						<td><input class="thin" type="text" name="key_sequence"
-							data-ng-model="key.sequence" /></td>
-						<td><input class="extra-wide" type="text" name="query"
-							data-ng-model="key.expression" /></td>
-						<td>
-							<button class="button button-small"
-								data-ng-click="removeKey($event, key)">&ndash;</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<footer>
-			<a href="https://github.com/farleigh/keyboardshortcuts" target="_new">More
-				Information</a>
-		</footer>
-	</section>
-	<script src="scripts/3p/angular.min.js"></script>
-	<script src="scripts/popup.js"></script>
+    <section style="margin: 2em;" class="container" data-ng-controller="shortcutConfigurationController">
+        <div>
+            <div class="u-pull-left" style="margin-right: 1em">
+                <img src="images/icon64.png" alt="KS" />
+            </div>
+            <div style="padding-top: 1em;">
+                <h5>keyboard shortcuts</h5>
+            </div>
+            <div class="u-cf"></div>
+        </div>
+        Add new keyboard shortcuts by setting a url pattern, key sequence, and a sequence of operations. Url patterns
+        follow js regex (e.g. ^https?://(www\.)?google\.com.*). Key sequences consist of short name of key delimited by
+        + (e.g. alt+shift+s). Action expressions are a sequence of operations to accomplish an action. See <a
+            href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">Wiki</a> for additional details.
+        <div style="margin-top: 1em;">
+            <button class="button button-primary button-small" data-ng-click="addKey()">+</button>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>url expression</th>
+                        <th>keys</th>
+                        <th>action expression</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        data-ng-repeat="key in shortcutKeys track by $index | orderBy: ['key.url_expression', 'key.sequence']">
+                        <td><input class="wide" type="text" name="url_expression" data-ng-model="key.urlExpression" /></td>
+                        <td><input class="thin" type="text" name="key_sequence" data-ng-model="key.sequence" /></td>
+                        <td><input class="extra-wide" type="text" name="query" data-ng-model="key.expression" /></td>
+                        <td>
+                            <button class="button button-small" data-ng-click="removeKey($event, key)">&ndash;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer>
+            <a href="https://github.com/farleigh/keyboardshortcuts" target="_new">More Information</a>
+        </footer>
+    </section>
+    <script src="scripts/3p/angular.min.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/popup.js"></script>
 </body>
 </html>
