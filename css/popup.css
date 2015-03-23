@@ -1,14 +1,16 @@
 body {
 	font-family: arial, helvetica, sans-serif;
 	font-size: 1.2em;
+	overflow: auto;
 }
 
 h1 {
-	font-size:1.3em;
+	font-size: 1.3em;
 }
 
 .th, td {
-	padding: 5px;
+	padding: 5px 5px 0 5px;
+	vertical-align: top;
 }
 
 .th {
@@ -16,16 +18,22 @@ h1 {
 	color: dark-red;
 }
 
-select, input {
+select, input, textarea {
 	margin-bottom: 0;
+}
+
+textarea {
+    white-space: nowrap;
+    overflow: auto;
+    min-height: 1em;
 }
 
 .container {
 	width: 55em;
 }
-    
+
 .button.button-small {
-	margin: 0;
+	margin: 3px 0 0 0;
 	padding: 0 5px 5px 5px;
 	width: 30px;
 	height: 30px;
@@ -33,14 +41,15 @@ select, input {
 	font-size: 20px;
 }
 
-select.extra-wide, input.extra-wide {
+textarea.extra-wide, select.extra-wide, input.extra-wide {
 	width: 24em;
 }
 
-select.extra-wide, input.wide {
+textarea.wide, select.wide, input.wide {
 	width: 18em;
 }
 
-select.extra-wide, input.thin {
+textarea.thin, select.thin, input.thin {
 	width: 8em;
 }
+
