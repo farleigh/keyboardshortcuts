@@ -37,7 +37,8 @@
     var invokeContextMenuOnObject = function(obj) {
         var element = obj[0];
         var event = element.ownerDocument.createEvent("MouseEvents");
-        event.initMouseEvent("contextmenu", true, true, element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false,
+        event.initMouseEvent("contextmenu", true, true,
+                element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false,
                 false, false, 2, null);
         return !element.dispatchEvent(event);
     };
@@ -109,7 +110,8 @@
             var element = elements.first();
             if (attributeName) {
                 if (attributeName.indexOf("data-") > -1) {
-                    var dataName = attributeName.substring(attributeName.indexOf("data-") + 5);
+                    var dataName = attributeName.substring(attributeName
+                            .indexOf("data-") + 5);
                     return element.data(dataName);
                 } else {
                     return element.attr(attributeName);
@@ -203,7 +205,8 @@
         } else if (expression.operator === "right-click") {
             returnVal = rightClick(expression.query);
         } else if (expression.operator === "wait") {
-            returnVal = wait(expression.query, expressions, expression.maxWaitTime, expression.minWaitTime);
+            returnVal = wait(expression.query, expressions,
+                    expression.maxWaitTime, expression.minWaitTime);
         } else if (expression.operator === "hover") {
             returnVal = hover(expression.query);
         } else if (expression.operator === "copy") {
@@ -264,13 +267,19 @@
         });
     };
 
+    $.hotkeys.options.filterInputAcceptingElements = false;
+    $.hotkeys.options.filterContentEditable = false;
+
     // Add a listener for messages received from the popup
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request && request.length) {
-            addHandlers(request);
-        }
-    });
+    chrome.runtime.onMessage
+            .addListener(function(request, sender, sendResponse) {
+                if (request && request.length) {
+                    addHandlers(request);
+                }
+            });
 
     // Do the initial load
-    loadShortcuts();
+    $(document).ready(function() {
+        loadShortcuts();
+    });
 })();
