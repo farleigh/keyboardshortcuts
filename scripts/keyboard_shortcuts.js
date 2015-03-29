@@ -195,6 +195,7 @@
      * recognizable operation, it is ignored.
      */
     var execute = function(expressions) {
+        console.log("Executing command");
         if (expressions === undefined || expressions.length === 0) {
             return true;
         }
@@ -267,8 +268,13 @@
         });
     };
 
-    $.hotkeys.options.filterInputAcceptingElements = false;
-    $.hotkeys.options.filterContentEditable = false;
+    console.log($.hotkeys.options);
+    
+    jQuery.hotkeys.options.filterInputAcceptingElements = false;
+    jQuery.hotkeys.options.filterContentEditable = false;
+    jQuery.hotkeys.options.filterTextInputs = false;
+    
+    console.log($.hotkeys.options);
 
     // Add a listener for messages received from the popup
     chrome.runtime.onMessage

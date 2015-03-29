@@ -1,6 +1,6 @@
 {
   "name": "KeyboardShortcuts",
-  "version": "0.3",
+  "version": "0.4",
   "background": {
     "persistent": false,
     "page": "background.html"
