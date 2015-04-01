@@ -4,7 +4,7 @@
 
     keyShorts.factory("angularStorage", function($q) {
         return {
-            get : function() {
+            get: function() {
                 var deferred = $q.defer();
                 storage.get(function(data) {
                     var value = storage.extractValue(data);
@@ -12,7 +12,10 @@
                 });
                 return deferred.promise;
             },
-            set : function(value) {
+            set: function(value) {
+                if (!value) {
+                    return;
+                }
                 storage.set(value);
                 // send message to all tabs that shortcut keys have changed
                 chrome.tabs.query({}, function(tabs) {
@@ -24,8 +27,8 @@
         };
     });
 
-    keyShorts.controller("shortcutConfigurationController", [ "$scope", "angularStorage",
-            function($scope, angularStorage) {
+    keyShorts.controller("shortcutConfigurationController", [ "$scope",
+            "angularStorage", function($scope, angularStorage) {
                 $scope.shortcutKeys = undefined;
                 angularStorage.get().then(function(value) {
                     $scope.shortcutKeys = value;
@@ -37,9 +40,9 @@
 
                 $scope.addKey = function() {
                     $scope.shortcutKeys.push({
-                        urlExpression : "",
-                        sequence : "",
-                        expression : ""
+                        urlExpression: "",
+                        sequence: "",
+                        expression: ""
                     });
                 };
 

@@ -81,7 +81,7 @@
     /**
      * Helper method for wait - this is recursively called by setTimeout. If the
      * element we are selecting is found, then evaluate and execute the
-     * remaining expressions.
+     * remaining statements.
      */
     var waitFor = function(query, expressions, maxWait, minWait) {
         var elements = $(query);
@@ -93,7 +93,7 @@
             setTimeout(function() {
                 waitFor(query, expressions, maxWait, minWait);
             }, minWait);
-            return false;
+            return false; // prevent execution of the remaining statements
         } else {
             return false;
         }
@@ -150,26 +150,26 @@
 
     /**
      * Parse the complete query expression by splitting it up based on the ;\s
-     * delimiter and calling parseSingle expression on each expression.
+     * delimiter and calling parseSingleStatement on each part.
      */
-    var parseQueryExpression = function(expression) {
+    var parseStatements = function(expression) {
         if (!expression) {
             return [];
         }
         var unparsedExpressions = expression.split(/;\s*/);
         var parsedExpressions = [];
         $.each(unparsedExpressions, function(index, value) {
-            parsedExpressions.push(parseSingleExpression(value));
+            parsedExpressions.push(parseSingleStatement(value));
         });
         return parsedExpressions;
     };
 
     /**
-     * Parse a single expression. An expression should consist of an operator
+     * Parse a single statement. A statement should consist of an operator
      * followed by operands that are specific to the operation being performed.
      * If an expression does not have a recognizable format, it is ignored.
      */
-    var parseSingleExpression = function(expression) {
+    var parseSingleStatement = function(expression) {
         var regex = /([-\w]+)\s*\(\s*"([^"]+)"\s*(?:(?:,\s*"([-\w]+)")|(?:(?:,\s*(\d+)\s*)?(?:,\s*(\d+)\s*)?))\s*\)/i;
         var matches = regex.exec(expression);
         var parsedExpression = {};
@@ -191,11 +191,10 @@
     };
 
     /**
-     * Execute all expressions in order. If an expression does not have a
+     * Execute all statements in order. If a statement does not have a
      * recognizable operation, it is ignored.
      */
     var execute = function(expressions) {
-        console.log("Executing command");
         if (expressions === undefined || expressions.length === 0) {
             return true;
         }
@@ -224,7 +223,7 @@
      */
     var addHandler = function(value) {
         var handler = function() {
-            var expressions = parseQueryExpression(value.expression);
+            var expressions = parseStatements(value.expression);
             if (expressions) {
                 execute(expressions);
             }
@@ -267,15 +266,11 @@
             addHandlers(values);
         });
     };
-
-    console.log($.hotkeys.options);
     
     jQuery.hotkeys.options.filterInputAcceptingElements = false;
     jQuery.hotkeys.options.filterContentEditable = false;
     jQuery.hotkeys.options.filterTextInputs = false;
     
-    console.log($.hotkeys.options);
-
     // Add a listener for messages received from the popup
     chrome.runtime.onMessage
             .addListener(function(request, sender, sendResponse) {
