@@ -1,6 +1,6 @@
 # KeyboardShortcuts
 
-KeyboardShortcuts is a chrome extension which enables users to define hotkeys or keyboard shortcuts and a sequence of operations to be invoked when a matching key sequence is pressed.  For help see the <a href="https://github.com/farleigh/keyboardshortcuts">wiki</a>.
+KeyboardShortcuts is a chrome extension which enables users to define hotkeys or keyboard shortcuts and a sequence of operations to be invoked when a matching key sequence is pressed.  For help see the <a href="https://github.com/farleigh/keyboardshortcuts/wiki">wiki</a>.
 
 ## License
 
