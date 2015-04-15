@@ -24,12 +24,12 @@ select, input, textarea {
 
 textarea {
     white-space: nowrap;
-    overflow: auto;
+    overflow: hidden;
     min-height: 1em;
 }
 
 .container {
-	width: 55em;
+	width: 65em;
 }
 
 .button.button-small {

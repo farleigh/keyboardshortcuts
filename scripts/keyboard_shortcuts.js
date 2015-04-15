@@ -243,10 +243,7 @@
             $(document).off("keydown", handler);
         });
         $.each(shortcuts, function(i, value) {
-            var urlExpr = value.urlExpression;
-            if (!urlExpr) {
-                urlExpr = ".*";
-            }
+            var urlExpr = value.urlExpression || ".*";
             var regex = new RegExp(value.urlExpression);
             if (regex.exec(window.location.href, "i")) {
                 addHandler(value);
@@ -266,11 +263,11 @@
             addHandlers(values);
         });
     };
-    
+
     jQuery.hotkeys.options.filterInputAcceptingElements = false;
     jQuery.hotkeys.options.filterContentEditable = false;
     jQuery.hotkeys.options.filterTextInputs = false;
-    
+
     // Add a listener for messages received from the popup
     chrome.runtime.onMessage
             .addListener(function(request, sender, sendResponse) {
