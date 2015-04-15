@@ -31,7 +31,10 @@
             "angularStorage", function($scope, angularStorage) {
                 $scope.shortcutKeys = undefined;
                 angularStorage.get().then(function(value) {
-                    $scope.shortcutKeys = value || [];
+                    $scope.shortcutKeys = value;
+                    if (!$scope.shortcutKeys || !$scope.shortcutKeys.length) {
+                        $scope.shortcutKeys = [];
+                    }
                 });
 
                 $scope.addKey = function() {
