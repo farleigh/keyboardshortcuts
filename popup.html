@@ -41,9 +41,9 @@
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="key in shortcutKeys track by $index">
-                        <td><input class="wide" type="text" name="url_expression" data-ng-model="key.urlExpression" /></td>
-                        <td><input class="thin" type="text" name="key_sequence" data-ng-model="key.sequence" /></td>
-                        <td><textarea class="extra-wide" name="query" data-ng-model="key.expression"></textarea></td>
+                        <td><input class="wide" type="text" name="url_expression" placeholder="Regex that matches the page's URL" data-ng-model="key.urlExpression" /></td>
+                        <td><input class="thin" type="text" name="key_sequence" placeholder="Key sequence" data-ng-model="key.sequence" /></td>
+                        <td><textarea class="extra-wide" name="query" placeholder="Actions to run" data-ng-model="key.expression"></textarea></td>
                         <td>
                             <button class="button button-small" data-ng-click="removeKey($event, key)">&ndash;</button>
                         </td>

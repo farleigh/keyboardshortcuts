@@ -49,7 +49,7 @@
     var hover = function(query) {
         var result = $(query);
         if (result && result.length > 0) {
-            result.first().mouseover();
+            result.first().trigger("mouseover");
             return true;
         }
         return false;
@@ -149,6 +149,18 @@
     };
 
     /**
+     * Perform a focus operation.
+     */
+    var focus = function(query) {
+        var result = $(query);
+        if (result && result.length > 0) {
+            result.first().trigger("focus");
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Parse the complete query expression by splitting it up based on the ;\s
      * delimiter and calling parseSingleStatement on each part.
      */
@@ -211,6 +223,8 @@
             returnVal = hover(expression.query);
         } else if (expression.operator === "copy") {
             returnVal = copy(expression.query, expression.attribute);
+        } else if (expression.operator === "focus") {
+            returnVal = focus(expression.query);
         }
         if (!returnVal) {
             return false;
