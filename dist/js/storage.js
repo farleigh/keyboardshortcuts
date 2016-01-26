@@ -1,4 +1,5 @@
-var storage = (function() {
+/*global chrome */
+define("storage", function storage() {
     "use strict";
     var key = "configuration";
     var storageArea = null;
@@ -20,4 +21,4 @@ var storage = (function() {
             return obj[key];
         }
     };
-}());
+});

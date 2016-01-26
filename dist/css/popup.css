@@ -1,0 +1,55 @@
+body {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 1.2em;
+	overflow: auto;
+}
+
+h1 {
+	font-size: 1.3em;
+}
+
+th, td {
+	padding: 5px 5px 0 5px;
+	vertical-align: top;
+}
+
+th {
+	text-align: center;
+	color: dark-red;
+}
+
+select, input, textarea {
+	margin-bottom: 0;
+}
+
+textarea {
+    white-space: nowrap;
+    overflow: hidden;
+    min-height: 1em;
+}
+
+.container {
+	width: 65em;
+}
+
+.button.button-small {
+	margin: 3px 0 0 0;
+	padding: 0 5px 5px 5px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+}
+
+textarea.extra-wide, select.extra-wide, input.extra-wide {
+	width: 24em;
+}
+
+textarea.wide, select.wide, input.wide {
+	width: 18em;
+}
+
+textarea.thin, select.thin, input.thin {
+	width: 8em;
+}
+

@@ -9,6 +9,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+node_modules/
 
 # Eclipse Core
 .project
@@ -33,3 +34,5 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+deploy.sh
