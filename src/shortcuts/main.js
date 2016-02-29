@@ -12,7 +12,9 @@ require(["require", "jquery"], function (require, $) {
     var rightClick = require("rightClick");
     var touch = require("touch");
     var wait = require("wait");
+    var go = require("go");
     var storage = require("storage");
+
 
     var executionHandlers = {
         copy: copy,
@@ -21,7 +23,8 @@ require(["require", "jquery"], function (require, $) {
         leftClick: leftClick,
         rightClick: rightClick,
         touch: touch,
-        wait: wait
+        wait: wait,
+        go: go
     };
 
      // Add a handler for each shortcut key that matches the URL pattern.

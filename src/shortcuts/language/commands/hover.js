@@ -9,7 +9,8 @@ define("hover", ["result"], function(result) {
     function hover(jq, query) {
         var value = jq(query);
         if (value && value.length > 0) {
-            value.first().trigger("mouseover");
+            var first = value.first();
+            first.trigger("mouseenter");
             return true;
         }
         return false;

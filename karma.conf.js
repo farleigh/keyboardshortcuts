@@ -17,7 +17,6 @@ module.exports = function(config) {
       {pattern: 'src/shortcuts/language/**/*.js', included: true},
       {pattern: 'test/lib/*.js', included: false},
       {pattern: 'test/**/*Spec.js', included: false},
-      'lib/jquery.min.js',
       'test/test-main.js'
     ],
 

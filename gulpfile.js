@@ -3,11 +3,17 @@ var jshint = require("gulp-jshint");
 var rimraf = require("rimraf");
 var concat = require('gulp-concat');
 var Server = require('karma').Server;
+var flatten = require('gulp-flatten');
+var minify = require('gulp-minify');
 
 var paths = {
     out: 'dist',
     src: 'src',
-    lib: 'lib'
+    libs: ['node_modules/almond/almond.js',
+           'node_modules/angular/angular.js',
+           'node_modules/jquery/dist/jquery.js',
+           'node_modules/jquery.hotkeys/jquery.hotkeys.js',
+           'node_modules/ng-group/src/ngGroup.js']
 };
 
 gulp.task("clean", function (cb) {
@@ -33,18 +39,22 @@ gulp.task("copy", function () {
         base: "."
     }).pipe(gulp.dest(paths.out));
 
-    // copy js source
-    gulp.src([paths.src + '/config/**/*.js']).pipe(gulp.dest(paths.out + '/js'));
-    gulp.src([paths.src + '/share/**/*.js']).pipe(gulp.dest(paths.out + '/js'));
-    gulp.src([paths.src + '/*.js']).pipe(gulp.dest(paths.out + '/js'));
+    // copy js source for config
+    gulp.src([paths.src + '/config/**/*.js', paths.src + '/share/**/*.js', paths.src + '/*.js'])
+        .pipe(concat('config-bundle.js'))
+        .pipe(minify())
+        .pipe(gulp.dest(paths.out + '/js'));
 
     // concatenate js source for shortcuts
     gulp.src([paths.src + '/shortcuts/**/*.js', paths.src + '/share/**/*.js'])
-        .pipe(concat('keyboard_shortcuts.js'))
+        .pipe(concat('keyboard-shortcuts-bundle.js'))
+        .pipe(minify())
         .pipe(gulp.dest(paths.out + '/js'));
 
     // copy js lib
-    gulp.src([paths.lib + "/**/*.js"]).pipe(gulp.dest(paths.out + "/js/3p"));
+    gulp.src(paths.libs)
+        .pipe(minify())
+        .pipe(gulp.dest(paths.out + "/js/3p"));
 
 });
 

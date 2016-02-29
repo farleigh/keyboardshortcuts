@@ -1,11 +1,35 @@
 body {
 	font-family: arial, helvetica, sans-serif;
-	font-size: 1.2em;
+	font-size: 1.4rem;
 	overflow: auto;
 }
 
 h1 {
-	font-size: 1.3em;
+	font-size: 2rem;
+	color: #1EACDB;
+}
+
+h2 {
+	text-align: left;
+	font-size: 1.6rem;
+	font-style: italic;
+}
+
+h3 {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+table {
+	width: 100%;
+}
+
+tr:nth-child(4n+3) {
+	background: #F7F8FA;
+}
+
+.clickable {
+	cursor: pointer;
 }
 
 th, td {
@@ -14,8 +38,13 @@ th, td {
 }
 
 th {
-	text-align: center;
-	color: dark-red;
+	text-align: left;
+	color: #1EACDB;
+}
+
+td {
+	vertical-align: middle;
+	min-height: 40px;
 }
 
 select, input, textarea {
@@ -29,27 +58,51 @@ textarea {
 }
 
 .container {
-	width: 65em;
+	width: 50rem;
+}
+
+.edit-form {
+	box-shadow: 10px 10px 5px grey;
+	padding: 2rem;
+	background-color: #B3DDEB;
+	margin: 10px 0;
+}
+
+.edit-form > div {
+	margin-top: 0.7rem;
+}
+
+.button.button-small, button.button-trimmed {
+	padding: 0 5px 5px 5px;
+	height: 30px;
+	line-height: 30px;
 }
 
 .button.button-small {
-	margin: 3px 0 0 0;
-	padding: 0 5px 5px 5px;
 	width: 30px;
-	height: 30px;
-	line-height: 30px;
 	font-size: 20px;
 }
 
+.button.button-trimmed {
+	min-width: 70px;
+}
+
 textarea.extra-wide, select.extra-wide, input.extra-wide {
-	width: 24em;
+	width: 50rem;
 }
 
 textarea.wide, select.wide, input.wide {
-	width: 18em;
+	width: 30rem;
 }
 
 textarea.thin, select.thin, input.thin {
-	width: 8em;
+	width: 10rem;
 }
 
+textarea.full, select.full, input.full {
+	width: 100%;
+}
+
+textarea.tall {
+	height: 20rem;
+}

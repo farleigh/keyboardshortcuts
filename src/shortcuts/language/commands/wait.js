@@ -19,13 +19,9 @@ define("wait", ["result", "executor"], function (result, executor) {
        if (!remainingStatements || !remainingStatements.length) {
            return true;
        }
-       if (!maxWait) {
-           maxWait = 2000;
-       }
-       if (!minWait) {
-           minWait = 200;
-       }
-       return waitFor(jq, query, remainingStatements, executor, handlers, maxWait, minWait);
+       minWait = minWait || 200;
+       maxWait = maxWait || 2000;
+       waitFor(jq, query, remainingStatements, executor, handlers, minWait, maxWait);
    }
 
     // Helper method for wait - this is recursively called by setTimeout. If the
@@ -41,9 +37,6 @@ define("wait", ["result", "executor"], function (result, executor) {
             setTimeout(function() {
                 waitFor(jq, query, remainingStatements, executor, handlers, minWait, maxWait);
             }, minWait);
-            return false; // prevent execution of the remaining statements
-        } else {
-            return false;
         }
     }
 
@@ -56,10 +49,10 @@ define("wait", ["result", "executor"], function (result, executor) {
         }
         query = matches[1] || "";
         if(matches.length > 2) {
-            minWait = matches[2] || 200;
+            minWait = matches[2];
         }
         if(matches.length > 3) {
-            maxWait = matches[3] || 2000;
+            maxWait = matches[3];
         }
         wait(jq, matches[1], remainingStatements, executor, handlers, minWait, maxWait);
         return { stopExecution: true };

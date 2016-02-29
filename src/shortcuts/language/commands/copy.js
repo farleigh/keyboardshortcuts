@@ -2,29 +2,9 @@
 // Perform a copy operation (copy). If an attribute is specified, the value
 // of the attribute will be copied. If nothing is specified, the content of
 // the first element matching the query will be copied.
-define("copy", ["result"], function(result) {
+define("copy", ["contentHelper", "result"], function(contentHelper, result) {
     var regex, handle;
     regex = /^copy\s*\(\s*(?:")([^"]+)(?:")\s*(?:,\s*(?:")([^"]+)(?:"))?\s*\)$/i;
-
-    // Get content from an attribute if attribute name is specified, otherwise
-    // get content from innerHTML.
-    function getContent (jq, query, attributeName) {
-        var elements = jq(query);
-        if (elements && elements.length) {
-            var element = elements.first();
-            if (attributeName) {
-             if (attributeName.indexOf("data-") > -1) {
-                 var dataName = attributeName.substring(attributeName
-                         .indexOf("data-") + 5);
-                 return element.data(dataName);
-             } else {
-                 return element.attr(attributeName);
-             }
-            } else {
-                return element.html();
-            }
-        }
-    }
 
     // Push content into the clipboard
     function performCopy (jq, content) {
@@ -39,7 +19,7 @@ define("copy", ["result"], function(result) {
 
     // Get content from element and perform copy
     function copy (jq, query, attribute) {
-        var value = getContent(jq, query, attribute);
+        var value = contentHelper.getContent(jq, query, attribute);
         if (!value) {
          return false;
         }

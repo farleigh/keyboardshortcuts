@@ -6,19 +6,19 @@ define(["hover", "test/lib/mocked-jq"], function(hover, mockedJQ) {
         it("should hover over the element with id myElement.", function() {
             mockedJQ.elementFound(true);
             expect(hover.handle(mockedJQ.instance, "hover(\"#myElement\")")).toEqual({ handled: true, stop: false});
-            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseover);");
+            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseenter);");
         });
 
         it("should hover over the element with id myElement when command has optional whitespace.", function() {
             mockedJQ.elementFound(true);
             expect(hover.handle(mockedJQ.instance, "hover ( \"#myElement\" )")).toEqual({ handled: true, stop: false});
-            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseover);");
+            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseenter);");
         });
 
         it("should hover over the first element with class myClass.", function() {
             mockedJQ.elementFound(true);
             expect(hover.handle(mockedJQ.instance, "hover(\".myClass\")")).toEqual({ handled: true, stop: false});
-            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseover);");
+            expect(mockedJQ.getCalls()).toEqual("first();trigger(mouseenter);");
         });
 
         it("should fail when element is not found.", function () {

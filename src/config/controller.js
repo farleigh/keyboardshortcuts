@@ -1,29 +1,43 @@
 /*global angular */
 define("controller", function () {
-    return function ($scope, angularStorage) {
+    return function (angularStorage) {
+        var vm = this;
+
         angularStorage.get().then(function(value) {
-            $scope.shortcutKeys = value || [];
+            vm.shortcutKeys = value || [];
         });
 
-        $scope.addKey = function() {
-            $scope.shortcutKeys.push({
+        vm.edit = function(key, isNew) {
+            vm.currentEditKey = key;
+            vm.isNew = isNew || false;
+        };
+
+        vm.add = function() {
+            var key = {
+                name: "",
                 urlExpression: "",
                 sequence: "",
                 expression: ""
-            });
+            };
+            vm.shortcutKeys.push(key);
+            vm.edit(key, true);
         };
 
-        $scope.removeKey = function($event, key) {
-            var index = $scope.shortcutKeys.indexOf(key);
+        vm.remove = function($event, key) {
+            var index = vm.shortcutKeys.indexOf(key);
             if (index > -1) {
-                $scope.shortcutKeys.splice(index, 1);
+                vm.shortcutKeys.splice(index, 1);
+                angularStorage.set(vm.shortcutKeys);
             }
+            vm.close();
         };
 
-        $scope.save = function() {
-            angularStorage.set($scope.shortcutKeys);
+        vm.save = function() {
+            angularStorage.set(vm.shortcutKeys);
         };
 
-        $scope.$watch("shortcutKeys", $scope.save, true);
+        vm.close = function() {
+            vm.edit(null);
+        };
     };
 });
