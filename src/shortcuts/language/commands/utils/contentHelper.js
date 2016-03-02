@@ -1,6 +1,6 @@
 define("contentHelper", function() {
 
-  var attributeRegex = /^([^\{]*)(?:\{\s*)?([^\}]*)?(?:\}\s*)?$/i;
+  var attributeRegex = /^(.*?(?=\s*\{))(?:\s*\{\s*(.*?(?=\s*\}))\s*\})?(?:\s*\{\{\s*(.*?(?=\s*\}\}))\s*\}\}\s*)?$/i;
 
   function getValueFromAttribute(element, attributeName) {
     var dataName;
@@ -31,7 +31,7 @@ define("contentHelper", function() {
   // Get content from an attribute if attribute name is specified, otherwise
   // get content from innerHTML.
   function getContent (jq, query, attributeName) {
-    var matches, element;
+    var matches, element, valueRegex;
     if(!attributeName) {
       // Attempt to get attribute name from query.
       matches = attributeRegex.exec(query);
