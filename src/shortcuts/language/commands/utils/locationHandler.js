@@ -1,3 +1,4 @@
+/*global define*/
 define("locationHandler", function() {
   // Change location (window.location) based on values provided in the templated url.
   function changeLocation (location, urlStrategy, url, values) {
@@ -7,7 +8,7 @@ define("locationHandler", function() {
     if(!url) {
       return false;
     }
-    location.href = urlStrategy.getUrl(url, values);
+    location.href = encodeURI(urlStrategy.getUrl(url, values));
     return true;
   }
 

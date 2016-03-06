@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["focus", "test/lib/mocked-jq"], function(focus, mockedJQ) {
     "use strict";
 

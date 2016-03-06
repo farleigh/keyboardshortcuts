@@ -29,7 +29,7 @@ gulp.task("lint", function () {
 gulp.task("test", function(done) {
     Server.start({
         configFile: __dirname + "/karma.conf.js",
-        singleRun: true
+        singleRun: false
     }, done);
 });
 

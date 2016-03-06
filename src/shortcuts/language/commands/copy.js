@@ -2,9 +2,8 @@
 // Perform a copy operation (copy). If an attribute is specified, the value
 // of the attribute will be copied. If nothing is specified, the content of
 // the first element matching the query will be copied.
-define("copy", ["contentHelper", "result"], function(contentHelper, result) {
-  var regex, handle;
-  regex = /^copy\s*\(\s*(?:")([^"]+)(?:")\s*(?:,\s*(?:")([^"]+)(?:"))?\s*\)$/i;
+define("copy", ["contentRetriever", "result"], function(contentRetriever, result) {
+  var handle, regex = /^copy\s*\(\s*(.*?)\s*\)\s*$/i;
 
   // Push content into the clipboard
   function performCopy (jq, content) {
@@ -18,8 +17,8 @@ define("copy", ["contentHelper", "result"], function(contentHelper, result) {
   }
 
   // Get content from element and perform copy
-  function copy (jq, query, attribute) {
-    var value = contentHelper.getContent(jq, query, attribute);
+  function copy (jq, query) {
+    var value = contentRetriever.getContent(jq, query);
     if (!value) {
       return false;
     }
@@ -33,8 +32,7 @@ define("copy", ["contentHelper", "result"], function(contentHelper, result) {
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    attribute = matches.length == 3 ? matches[2] : undefined;
-    var success = copy(jq, matches[1], attribute);
+    var success = copy(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

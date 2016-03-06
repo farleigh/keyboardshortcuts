@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["templatedUrlStrategy", "test/lib/mocked-jq"], function (urlStrategy, mockedJQ) {
     "use strict";
 

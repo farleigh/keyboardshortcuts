@@ -1,15 +1,18 @@
 /*global define */
-define("go", ["locationHandler", "templatedUrlStrategy", "contentHelper", "result"], function(locationHandler, urlStrategy, contentHelper, result) {
+define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "result"], function(locationHandler, urlStrategy, contentRetriever, result) {
   "use strict";
 
-  var regex = /^go\s*\(\s*"([^"]+)"((?:\s*,\s*"(?:[^"]+)")*)\s*\)$/i;
-  var queryRegex = /"\s*,\s*"/i;
-  var startRegex = /^,\s*"/i;
-  var endRegex = /"$/i;
+  var regex = /^go\s*\(\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
+  var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
   var location = window.location;
 
   function setLocation(loc) {
     location = loc;
+    contentRetriever.setLocation(loc);
+  }
+
+  function setWindow(win) {
+    contentRetriever.setWindow(win);
   }
 
   // Get all values
@@ -23,9 +26,13 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentHelper", "resul
       if(typeof query === "undefined") {
         continue;
       }
-      values.push(contentHelper.getContent(jq, query));
+      values.push(contentRetriever.getContent(jq, query));
     }
     return values;
+  }
+
+  function getItemSafely (matches, position) {
+    return matches && matches.length > position ? matches[position] : "";
   }
 
   // Perform the goToUrl operation (go). Force the current page to go do a different URL.
@@ -39,19 +46,16 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentHelper", "resul
   }
 
   function handleGo (jq, statement) {
-    var success = false, matches = regex.exec(statement), queries;
+    var success = false, matches = regex.exec(statement), queries, url;
     if(!matches) {
       return result.NOT_HANDLED;
     }
-
-    if(matches.length < 3) {
-      success = go(jq, matches[1]);
-    } else if(matches.length > 1) {
-      queries = matches[2];
-      queries = queries.replace(startRegex, "");
-      queries = queries.replace(endRegex, "");
-      success = go(jq, matches[1], queries.split(queryRegex));
+    url = getItemSafely(matches, 1);
+    queries = getItemSafely(matches, 2);
+    if(queries) {
+      queries = queries.match(queryRegex);
     }
+    success = go(jq, url, queries);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 
@@ -63,6 +67,7 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentHelper", "resul
     handle: handleGo,
     execute: go,
     toString: usage,
-    setLocation: setLocation /* Allow for replacing window.location for testing */
+    setLocation: setLocation, /* Allow for replacing window.location for testing */
+    setWindow: setWindow /* Allows for replacing window for testing */
   };
 });

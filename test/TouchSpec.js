@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["touch", "test/lib/mocked-jq"], function (touch, mockedJQ) {
     "use strict";
 

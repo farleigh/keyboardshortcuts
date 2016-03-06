@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["hover", "test/lib/mocked-jq"], function(hover, mockedJQ) {
     "use strict";
 

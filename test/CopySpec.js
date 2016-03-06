@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["copy", "test/lib/mocked-jq"], function(copy, mockedJQ) {
     "use strict";
 

@@ -1,4 +1,4 @@
-/*global describe, require, beforeEach, it, expect */
+/*global define, describe, require, beforeEach, it, expect */
 define(["locationHandler", "test/lib/mocked-location-strategy"], function(locationHandler, locationStrategy) {
     "use strict";
 
@@ -21,7 +21,7 @@ define(["locationHandler", "test/lib/mocked-location-strategy"], function(locati
           var mockedLocation = {};
           expect(locationHandler.change(mockedLocation, locationStrategy.instance, "/mylocation/${0}/${1}", ["parameter1", "parameter2"])).toEqual(true);
           expect(locationStrategy.getCalls()).toEqual("getUrl(/mylocation/${0}/${1}, { 0: parameter1, 1: parameter2,  });");
-          expect(mockedLocation.href).toEqual("/mylocation/${0}/${1}/transformed"); // Replacement does not happen in this test.
+          expect(mockedLocation.href).toEqual("/mylocation/$%7B0%7D/$%7B1%7D/transformed"); // Replacement does not happen in this test.
         });
     });
 });
