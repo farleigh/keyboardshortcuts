@@ -1,9 +1,11 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["selectedContentRetriever", "test/lib/mocked-jq"], function(retriever, mockedJQ) {
+define(["selectedContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window"], function(retriever, mockedJQ, mockedWindow) {
   "use strict";
+
   describe("User Selected Text Content Retriever", function () {
     beforeEach(function () {
-      var win = { getSelection: function () { return "IT IS BETTER TO LIVE"; } };
+      var win = mockedWindow.instance;
+      win.selection = "IT IS BETTER TO LIVE";
       retriever.setWindow(win);
     });
 

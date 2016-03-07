@@ -2,16 +2,12 @@
 define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "result"], function(locationHandler, urlStrategy, contentRetriever, result) {
   "use strict";
 
-  var regex = /^go\s*\(\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
+  var regex = /^go\s*\(\s*(true|false)\s*,\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
   var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
-  var location = window.location;
-
-  function setLocation(loc) {
-    location = loc;
-    contentRetriever.setLocation(loc);
-  }
+  var currWin = window;
 
   function setWindow(win) {
+    currWin = win;
     contentRetriever.setWindow(win);
   }
 
@@ -36,26 +32,27 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "re
   }
 
   // Perform the goToUrl operation (go). Force the current page to go do a different URL.
-  function go (jq, url, queries) {
+  function go (jq, isNewWindow, url, queries) {
     var values = [];
     // get values from strategies
     if(queries && queries.length) {
       values = getValues(jq, queries);
     }
-    return locationHandler.change(location, urlStrategy, url, values);
+    return locationHandler.change(false, currWin, urlStrategy, url, values);
   }
 
   function handleGo (jq, statement) {
-    var success = false, matches = regex.exec(statement), queries, url;
+    var success = false, matches = regex.exec(statement), isNewWindow = false, queries, url;
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    url = getItemSafely(matches, 1);
-    queries = getItemSafely(matches, 2);
+    isNewWindow = getItemSafely(matches, 1) === "true";
+    url = getItemSafely(matches, 2);
+    queries = getItemSafely(matches, 3);
     if(queries) {
       queries = queries.match(queryRegex);
     }
-    success = go(jq, url, queries);
+    success = go(jq, isNewWindow, url, queries);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 
@@ -67,7 +64,6 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "re
     handle: handleGo,
     execute: go,
     toString: usage,
-    setLocation: setLocation, /* Allow for replacing window.location for testing */
     setWindow: setWindow /* Allows for replacing window for testing */
   };
 });

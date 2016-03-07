@@ -22,7 +22,11 @@ define("selectedContentRetriever", function() {
   }
 
   function getValue() {
-    return currWin.getSelection();
+    var value = currWin.getSelection();
+    if(typeof value === "object") {
+      value = value.toString();
+    }
+    return value;
   }
 
   function setWindow(win) {

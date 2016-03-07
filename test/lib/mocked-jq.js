@@ -47,6 +47,10 @@ define(function(result) {
       return this[0];
     };
 
+    var mockHide = function mockHide () {
+      calls += "hide();";
+    };
+
     var mockTrigger = function mockTrigger (event) {
       calls += "trigger(" + event + ");";
       return this;
@@ -91,7 +95,8 @@ define(function(result) {
             trigger: mockTrigger,
             blur: mockBlur,
             ownerDocument: mockedOwnerDoc,
-            get: mockGet
+            get: mockGet,
+            hide: mockHide
         }];
 
         result.first = mockFirst;
@@ -104,6 +109,7 @@ define(function(result) {
         result.blur = mockBlur;
         result.ownerDocument = mockedOwnerDoc;
         result.get = mockGet;
+        result.hide = mockHide;
 
         return result;
     } // else return undefined

@@ -3,10 +3,10 @@ define("urlContentRetriever", function() {
   // Url expression format: url(/regex/flags), or url, or url()
   var urlRegex = /^\s*url(?:\s*\((?:\s*\/(.*)\/(.*))?\s*\))?\s*$/i;
 
-  var location = window.location;
+  var currWin = window;
 
-  function setLocation(loc) {
-    location = loc;
+  function setWindow(win) {
+    currWin = win;
   }
 
   function getItemSafely (matches, position) {
@@ -31,11 +31,11 @@ define("urlContentRetriever", function() {
     if(!matches) {
       return { match: false };
     }
-    if(!location || !location.href) {
+    if(!currWin || !currWin.location || !currWin.location.href) {
       return { match: true, content: "" };
     }
     regexp = buildRegex( getItemSafely(matches, 1), getItemSafely(matches, 2));
-    value = decodeURI(location.href).match(regexp);
+    value = decodeURI(currWin.location.href).match(regexp);
     if(value && value.length) {
       value = value[0];
     }
@@ -44,6 +44,6 @@ define("urlContentRetriever", function() {
 
   return {
       getContent: getContent,
-      setLocation: setLocation
+      setWindow: setWindow
   };
 });

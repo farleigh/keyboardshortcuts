@@ -22,5 +22,8 @@
     "ng-group": "git+https://github.com/samstokes/ng-group.git",
     "requirejs": "^2.1.22",
     "rimraf": "^2.5.0"
+  },
+  "jshintConfig": {
+    "eqnull": true
   }
 }

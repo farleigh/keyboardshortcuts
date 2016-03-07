@@ -1,12 +1,13 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["contentRetriever", "test/lib/mocked-jq"], function(retriever, mockedJQ) {
+define(["contentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window"], function(retriever, mockedJQ, mockedWindow) {
   "use strict";
   describe("Content Retriever", function () {
+
     beforeEach(function () {
-      var location = { href: "/foo/bar?query=ONE%20DAY%20AS%20A%20LION"};
-      retriever.setLocation(location);
-      var win = { getSelection: function () { return "IT IS BETTER TO LIVE"; } };
-      retriever.setWindow(win);
+      var win = mockedWindow.instance;
+      win.location.href = "/foo/bar?query=ONE%20DAY%20AS%20A%20LION";
+      win.selection = "IT IS BETTER TO LIVE";
+      retriever.setWindow(mockedWindow.instance);
     });
 
     it("should get all content from selected text without regex.", function () {

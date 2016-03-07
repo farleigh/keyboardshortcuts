@@ -1,11 +1,13 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["urlContentRetriever", "test/lib/mocked-jq"], function(retriever, mockedJQ) {
+define(["urlContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window"], function(retriever, mockedJQ, mockedWindow) {
   "use strict";
+
   describe("URL Content Retriever", function () {
 
-    beforeEach(function() {
-      var location = { href: "/foo/bar?query=ONE%20DAY%20AS%20A%20LION"};
-      retriever.setLocation(location);      
+    beforeEach(function () {
+      var win = mockedWindow.instance;
+      win.location.href = "/foo/bar?query=ONE%20DAY%20AS%20A%20LION";
+      retriever.setWindow(win);
     });
 
     it("should get all content from the url without regex.", function () {

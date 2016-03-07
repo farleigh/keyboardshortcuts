@@ -6,13 +6,9 @@ define("contentRetriever", ["elementContentRetriever", "urlContentRetriever", "s
     selectedContentRetriever
   ];
 
-  // Set location for unit tests
-  function setLocation(location) {
-    urlContentRetriever.setLocation(location);
-  }
-
   // Set window for unit tests.
   function setWindow(win) {
+    urlContentRetriever.setWindow(win);
     selectedContentRetriever.setWindow(win);
   }
 
@@ -39,7 +35,6 @@ define("contentRetriever", ["elementContentRetriever", "urlContentRetriever", "s
 
   return {
       getContent: getContent,
-      setLocation: setLocation,
       setWindow: setWindow
   };
 });
