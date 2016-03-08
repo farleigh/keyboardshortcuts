@@ -1,5 +1,5 @@
 /*global define */
-define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "result"], function(locationHandler, urlStrategy, contentRetriever, result) {
+define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "result"], function(locationHandler, textStrategy, contentRetriever, result) {
   "use strict";
 
   var regex = /^go\s*\(\s*(true|false)\s*,\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
@@ -38,11 +38,19 @@ define("go", ["locationHandler", "templatedUrlStrategy", "contentRetriever", "re
     if(queries && queries.length) {
       values = getValues(jq, queries);
     }
-    return locationHandler.change(false, currWin, urlStrategy, url, values);
+    if(!textStrategy) {
+      throw {message: "Invalid text strategy. Something is wrong!"};
+    }
+    url = textStrategy.get(url, values);
+    return locationHandler.change(false, currWin, url);
   }
 
   function handleGo (jq, statement) {
-    var success = false, matches = regex.exec(statement), isNewWindow = false, queries, url;
+    var success = false,
+        matches = regex.exec(statement),
+        isNewWindow = false,
+        queries,
+        url;
     if(!matches) {
       return result.NOT_HANDLED;
     }

@@ -27,12 +27,13 @@ define("copy", ["contentRetriever", "result"], function(contentRetriever, result
 
   // Return true if copy can handle this command.
   function handleCopy (jq, statement) {
-    var attribute;
-    var matches = regex.exec(statement);
+    var success,
+        attribute,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = copy(jq, matches[1]);
+    success = copy(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

@@ -17,11 +17,12 @@ define("focus", ["result"], function(result) {
 
   // Handle intepreting the focus operation.
   function handleFocus (jq, statement) {
-    var matches = regex.exec(statement);
+    var success,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = focus(jq, matches[1]);
+    success = focus(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

@@ -17,11 +17,12 @@ define("hide", ["result"], function(result) {
 
   // Handle intepreting the hide operation.
   function handleHide (jq, statement) {
-    var matches = regex.exec(statement);
+    var matches = regex.exec(statement),
+        success;
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = hide(jq, matches[1]);
+    success = hide(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

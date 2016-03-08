@@ -1,15 +1,13 @@
 /*global define*/
 define("locationHandler", function() {
   // Change location (window.location) based on values provided in the templated url.
-  function changeLocation (isNewWindow, win, urlStrategy, url, values) {
+  function changeLocation (isNewWindow, win, url) {
     var encodedUrl, newWin;
-    if(!urlStrategy) {
-      throw {message: "Invalid url strategy. Something is wrong!"};
-    }
+
     if(!url) {
       return false;
     }
-    encodedUrl = encodeURI(urlStrategy.getUrl(url, values));
+    encodedUrl = encodeURI(url);
     if(isNewWindow) {
       newWin = win.open(encodedUrl, '_blank');
       newWin.focus();

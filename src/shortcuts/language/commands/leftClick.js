@@ -12,12 +12,13 @@ define("leftClick", ["triggerEvent", "result"], function(trigger, result) {
   }
 
   function handleLeftClick (jq, statement) {
-    var attribute;
-    var matches = regex.exec(statement);
+    var attribute,
+        success,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = leftClick(jq, matches[1]);
+    success = leftClick(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

@@ -1,10 +1,5 @@
-/*global define, RegExp*/
-define("elementContentRetriever", function() {
-
-  // Element expression format: el("element", "attribute", /regex/flags). Will also match "element", "attribute" for backwards compatibility.
-  // Also matches el("element"), el("element", "attribute"), or el("element", /regex/flags).
-  var elRegex = /^\s*el\(\s*"([^"]*)"(?:\s*,\s*"([^"]*)"\s*)?(?:\s*,\s*\/(.*)\/(.*)\s*)?\)\s*$/i;
-  var oldElRegex = /^\s*"([^"]*)"(?:\s*,\s*"([^"]*)"\s*)?\s*$/i;
+/*global define */
+define("elementContentRetriever", ["elementContentParser"], function(parser) {
 
   // Get the first element that matches query
   function getFirstMatchingElement (jq, query) {
@@ -26,23 +21,6 @@ define("elementContentRetriever", function() {
     }
   }
 
-  // Get an item if it is available in the matches array. Otherwise return undefined.
-  function getItemSafely (matches, position) {
-    return matches && matches.length > position ? matches[position] : undefined;
-  }
-
-  // Build a regular expression. If no regular expression is provided then match everything.
-  function buildRegex (regex, flags) {
-    if(!regex) {
-      // match everything on default
-      return new RegExp(".*");
-    }
-    if(flags) {
-      return new RegExp(regex, flags);
-    }
-    return new RegExp(regex);
-  }
-
   function getValue(element, attributeName) {
     if (attributeName && typeof attributeName != "undefined") {
        return getValueFromAttribute(element, attributeName);
@@ -54,27 +32,20 @@ define("elementContentRetriever", function() {
   // Get content from an attribute if attribute name is specified, otherwise
   // get content from innerHTML.
   function getContent (jq, query) {
-    var matches, elementQuery, attributeName, regex, flags, element, value;
-    matches = elRegex.exec(query);
-    if(!matches) {
-      matches = oldElRegex.exec(query);
-      if(!matches) {
-        return { match: false };
-      }
+    var exprObj = parser.parse(query),
+        element, value;
+    if(!exprObj.match) {
+      return { match: false };
     }
-    elementQuery = getItemSafely(matches, 1);
-    attributeName = getItemSafely(matches, 2);
-    regex = getItemSafely(matches, 3);
-    flags = getItemSafely(matches, 4);
-    element = getFirstMatchingElement(jq, elementQuery);
+    element = getFirstMatchingElement(jq, exprObj.elementQuery);
     if(!element) {
       return { match: true, content: "" };
     }
-    value = getValue(element, attributeName);
+    value = getValue(element, exprObj.attributeName);
     if(!value) {
       return { match: true, content: "" };
     }
-    value = value.match(buildRegex(regex, flags));
+    value = value.match(exprObj.regex);
     if(value && value.length) {
       value = value[0];
     }

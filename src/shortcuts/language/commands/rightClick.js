@@ -24,11 +24,12 @@ define("rightClick", ["triggerEvent", "result"], function(trigger, result) {
 
   // Return handled if right click handles this command.
   function handleRightClick (jq, statement) {
-    var matches = regex.exec(statement);
+    var success,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = rightClick(jq, matches[1]);
+    success = rightClick(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

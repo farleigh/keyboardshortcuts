@@ -42,8 +42,10 @@ define("wait", ["result", "executor"], function (result, executor) {
 
   // Handle processing the wait command
   function handleWait (jq, statement, remainingStatements, executor, handlers) {
-    var query, minWait, maxWait;
-    var matches = regex.exec(statement);
+    var query,
+        minWait,
+        maxWait,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }

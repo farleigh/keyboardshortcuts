@@ -6,19 +6,41 @@ define(function(result) {
 
   function mockJQ(query) {
 
-    var mockData = function mockData (dataName) {
-      calls += "data(" + dataName + ");";
-      return "DATA ATTRIBUTE TO COPY";
+    var mockData = function mockData (dataName, value) {
+      calls += "data(";
+      calls += dataName;
+      if(value) {
+        calls += ", ";
+        calls += value;
+      }
+      calls += ");";
+      if(!value) {
+        return "DATA ATTRIBUTE VALUE TO COPY";
+      }
     };
 
-    var mockAttr = function mockAttr (attrName) {
-      calls += "attr(" + attrName + ");";
-      return "ATTRIBUTE VALUE TO COPY";
+    var mockAttr = function mockAttr (attrName, value) {
+      calls += "attr(";
+      calls += attrName;
+      if(value) {
+        calls += ", ";
+        calls += value;
+      }
+      calls += ");";
+      if(!value) {
+        return "ATTRIBUTE VALUE TO COPY";
+      }
     };
 
-    var mockHTML = function mockHTML () {
-      calls += "html();";
-      return "ELEMENT CONTENTS TO COPY";
+    var mockHTML = function mockHTML (value) {
+      calls += "html(";
+      if(value) {
+        calls += value;
+      }
+      calls += ");";
+      if(!value) {
+        return "ELEMENT CONTENTS TO COPY";
+      }
     };
 
     var mockExecCommand = function mockExecCommand () {

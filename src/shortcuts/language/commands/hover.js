@@ -17,11 +17,12 @@ define("hover", ["result"], function(result) {
   }
 
   function handleHover (jq, statement) {
-    var matches = regex.exec(statement);
+    var matches = regex.exec(statement),
+        success;
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = hover(jq, matches[1]);
+    success = hover(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

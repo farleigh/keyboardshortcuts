@@ -2,6 +2,7 @@
 require(["require", "jquery"], function (require, $) {
     "use strict";
 
+    // Commands
     var executor = require("executor");
     var copy = require("copy");
     var focus = require("focus");
@@ -11,6 +12,10 @@ require(["require", "jquery"], function (require, $) {
     var touch = require("touch");
     var wait = require("wait");
     var go = require("go");
+    var hide = require("hide");
+    var set = require("set");
+
+    // Other require
     var storage = require("storage");
 
     var executionHandlers = {
@@ -21,7 +26,9 @@ require(["require", "jquery"], function (require, $) {
       rightClick: rightClick,
       touch: touch,
       wait: wait,
-      go: go
+      go: go,
+      hide: hide,
+      set: set
     };
 
     var handlerNamespace = "keydown.keyboardshortcuts";

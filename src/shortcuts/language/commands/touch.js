@@ -12,11 +12,12 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
   }
 
   function handleTouch (jq, statement) {
-    var matches = regex.exec(statement);
+    var success,
+        matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    var success = touch(jq, matches[1]);
+    success = touch(jq, matches[1]);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

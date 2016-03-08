@@ -1,7 +1,7 @@
-define("templatedUrlStrategy", function() {
-  function getUrl (url, valueObject) {
+define("templatedTextStrategy", function() {
+  function getResult (text, valueObject) {
     var key, regex, value;
-    if(!url) {
+    if(!text) {
       return "";
     }
     if(valueObject) {
@@ -11,13 +11,13 @@ define("templatedUrlStrategy", function() {
           value = "";
         }
         regex = new RegExp("\\$\\{" + key + "\\}", "gi");
-        url = url.replace(regex, value);
+        text = text.replace(regex, value);
       }
     }
-    return url;
+    return text;
   }
 
   return {
-    getUrl: getUrl
+    get: getResult
   };
 });
