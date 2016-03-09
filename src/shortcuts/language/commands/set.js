@@ -11,7 +11,7 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
   }
 
   // Get all values
-  function getValues(jq, queries) {
+  function getValues (jq, queries) {
     var i = 0, values = [], query;
     if(!queries) {
       return values;
