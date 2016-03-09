@@ -1,6 +1,6 @@
 /*global chrome */
 define("angularStorage", ["storage"], function (storage) {
-  return function ($q) {
+  return function angularStorage ($q) {
     return {
       get: function() {
         var deferred = $q.defer();
@@ -15,7 +15,7 @@ define("angularStorage", ["storage"], function (storage) {
           return;
         }
         storage.set(value);
-        // send message to all tabs that shortcut keys have changed
+        // spam all tabs telling them shortcut keys have changed
         chrome.tabs.query({}, function(tabs) {
           angular.forEach(tabs, function(tab) {
             chrome.tabs.sendMessage(tab.id, value);

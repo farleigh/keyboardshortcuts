@@ -44,15 +44,12 @@ require(["require", "jquery"], function (require, $) {
       $(document).on(handlerNamespace, null, value.sequence, handler);
     };
 
-    // Keep handlers around for turning them off
-    var handlers = [];
-
      // Remove existing handlers and then add new handlers for each shortcut
      // defined in shortcuts.
     var addHandlers = function addHandlers (shortcuts) {
       console.log("Removing handlers");
       $(document).off(handlerNamespace);
-      console.log("Adding handlers back");
+      console.log("Adding handlers");
       shortcuts.forEach(function(value) {
         var urlExpr = value.urlExpression || ".*";
         var regex = new RegExp(value.urlExpression);
@@ -61,7 +58,6 @@ require(["require", "jquery"], function (require, $) {
         }
       });
     };
-
 
      // Retrieve all shortcuts from the data store and add the shortcuts with
      // URLs that match the specified pattern to the page to be listened for.
@@ -78,8 +74,7 @@ require(["require", "jquery"], function (require, $) {
     $.hotkeys.options.filterTextInputs = false;
 
     // Add a listener for messages received from the popup
-    chrome.runtime.onMessage
-      .addListener(function (request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           if (request && request.length) {
               addHandlers(request);
           }

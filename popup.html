@@ -26,7 +26,9 @@
       are a sequence of operations to accomplish an action. See <a href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">Wiki</a> for additional details.
     </p>
     <div style="margin: 1rem 1rem 1rem 0;">
-      <button class="button button-small button-primary" data-ng-click="shortcuts.add()">+</button>
+      <button class="button button-primary" data-ng-click="shortcuts.add()" title="Add a new shortcut key">Add</button>
+      <button class="button button-primary" data-ng-click="shortcuts.import()" title="Import shortcut keys from a url">Import</button>
+      <button class="button button-primary" data-ng-click="shortcuts.export()" title="Export shortcut keys to a file">Export</button>
     </div>
     <div data-ng-repeat="group in shortcuts.shortcutKeys | groupBy:'urlExpression':'keysByUrl'">
       <table>
@@ -83,8 +85,9 @@
         </tbody>
       </table>
     </div>
-    <footer>
-      <a href="https://github.com/farleigh/keyboardshortcuts" target="_new">More Information</a>
+    <footer style="margin-top: 2rem">
+      <em class="u-pull-left">KeyboardShortcuts v{{shortcuts.version}}</em>
+      <a class="u-pull-right" href="https://github.com/farleigh/keyboardshortcuts" target="_new">More Information</a>
     </footer>
   </div>
   <script src="js/3p/almond-min.js"></script>

@@ -2,6 +2,7 @@
   "name": "KeyboardShortcuts",
   "version": "1.0.0",
   "description": "Add Keyboard Shortcuts to Web Applications",
+  "homepage_url": "https://github.com/farleigh/keyboardshortcuts/wiki",
   "content_scripts": [{
      "matches": ["http://*/*", "https://*/*"],
      "js": ["js/3p/almond-min.js", "js/3p/jquery-min.js", "js/3p/jquery.hotkeys-min.js", "js/keyboard-shortcuts-bundle.js"]
