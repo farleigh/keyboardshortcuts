@@ -11,6 +11,13 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
     return trigger.execute(jq, query, "touchStart");
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   function handleTouch (jq, statement) {
     var success,
         matches = regex.exec(statement);
@@ -27,6 +34,7 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
 
   return {
     handle: handleTouch,
+    canHandle: canHandle,
     execute: touch,
     toString: usage
   };

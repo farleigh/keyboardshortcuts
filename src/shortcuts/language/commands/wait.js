@@ -40,6 +40,13 @@ define("wait", ["result", "executor"], function (result, executor) {
     }
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Handle processing the wait command
   function handleWait (jq, statement, remainingStatements, executor, handlers) {
     var query,
@@ -66,6 +73,7 @@ define("wait", ["result", "executor"], function (result, executor) {
 
   return {
     handle: handleWait,
+    canHandle: canHandle,
     execute: wait,
     toString: usage
   };

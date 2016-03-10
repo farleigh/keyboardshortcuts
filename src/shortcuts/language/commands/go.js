@@ -45,6 +45,13 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
     return locationHandler.change(false, currWin, url);
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   function handleGo (jq, statement) {
     var success = false,
         matches = regex.exec(statement),
@@ -70,6 +77,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
 
   return {
     handle: handleGo,
+    canHandle: canHandle,
     execute: go,
     toString: usage,
     setWindow: setWindow /* Allows for replacing window for testing */

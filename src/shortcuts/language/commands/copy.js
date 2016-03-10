@@ -25,6 +25,13 @@ define("copy", ["contentRetriever", "result"], function(contentRetriever, result
     return performCopy(jq, value);
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Return true if copy can handle this command.
   function handleCopy (jq, statement) {
     var success,
@@ -43,6 +50,7 @@ define("copy", ["contentRetriever", "result"], function(contentRetriever, result
 
   return {
     handle: handleCopy,
+    canHandle: canHandle,
     execute: copy,
     toString: usage
   };

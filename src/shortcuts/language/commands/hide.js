@@ -15,6 +15,13 @@ define("hide", ["result"], function(result) {
     return false;
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Handle intepreting the hide operation.
   function handleHide (jq, statement) {
     var matches = regex.exec(statement),
@@ -32,6 +39,7 @@ define("hide", ["result"], function(result) {
 
   return {
     handle: handleHide,
+    canHandle: canHandle,
     execute: hide,
     toString: usage
   };

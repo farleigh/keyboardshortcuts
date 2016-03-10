@@ -11,6 +11,13 @@ define("leftClick", ["triggerEvent", "result"], function(trigger, result) {
     return trigger.execute(jq, query, "click");
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   function handleLeftClick (jq, statement) {
     var attribute,
         success,
@@ -28,6 +35,7 @@ define("leftClick", ["triggerEvent", "result"], function(trigger, result) {
 
   return {
     handle: handleLeftClick,
+    canHandle: canHandle,
     execute: leftClick,
     toString: usage
   };

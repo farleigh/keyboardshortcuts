@@ -16,6 +16,13 @@ define("hover", ["result"], function(result) {
     return false;
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   function handleHover (jq, statement) {
     var matches = regex.exec(statement),
         success;
@@ -32,6 +39,7 @@ define("hover", ["result"], function(result) {
 
   return {
     handle: handleHover,
+    canHandle: canHandle,
     execute: hover,
     toString: usage
   };

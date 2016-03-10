@@ -15,6 +15,13 @@ define("focus", ["result"], function(result) {
     return false;
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Handle intepreting the focus operation.
   function handleFocus (jq, statement) {
     var success,
@@ -32,6 +39,7 @@ define("focus", ["result"], function(result) {
 
   return {
     handle: handleFocus,
+    canHandle: canHandle,
     execute: focus,
     toString: usage
   };

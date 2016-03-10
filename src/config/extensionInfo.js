@@ -1,7 +1,6 @@
 /*global chrome */
-define("extensionInfo", function storage() {
+define("extensionInfo", function extensionInfo () {
   "use strict";
-
   function getExtensionVersion () {
     if(chrome && chrome.runtime && chrome.runtime.getManifest()) {
       return chrome.runtime.getManifest().version;
@@ -9,7 +8,9 @@ define("extensionInfo", function storage() {
     return "unknown";
   }
 
-  return {
-    getVersion: getExtensionVersion
+  return function extensionInfo () {
+    return {
+      getVersion: getExtensionVersion
+    };
   };
 });

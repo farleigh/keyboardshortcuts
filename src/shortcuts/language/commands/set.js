@@ -35,6 +35,13 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
     return setter.setContent(jq, query, value);
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Handle intepreting the set operation.
   function handleSet (jq, statement) {
     var matches = regex.exec(statement),
@@ -65,6 +72,7 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
 
   return {
     handle: handleSet,
+    canHandle: canHandle,
     execute: set,
     toString: usage,
     setWindow: setWindow

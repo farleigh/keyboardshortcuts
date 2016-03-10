@@ -58,7 +58,7 @@ textarea {
 }
 
 .container {
-	width: 50rem;
+	width: 60rem;
 }
 
 .edit-form {
@@ -70,6 +70,19 @@ textarea {
 
 .edit-form > div {
 	margin-top: 0.7rem;
+}
+
+.error, .success {
+  font-weight: 500;
+  padding: 0.25rem;
+}
+
+.error {
+  color: #8B0000;
+}
+
+.success {
+  color: green;
 }
 
 .button.button-small, button.button-trimmed {

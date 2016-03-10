@@ -22,6 +22,13 @@ define("rightClick", ["triggerEvent", "result"], function(trigger, result) {
     return trigger.execute(jq, query, function (obj) { invokeContextMenuOnObject(obj); });
   }
 
+  function canHandle(statement) {
+    if(regex.exec(statement)) {
+      return true;
+    }
+    return false;
+  }
+
   // Return handled if right click handles this command.
   function handleRightClick (jq, statement) {
     var success,
@@ -39,6 +46,7 @@ define("rightClick", ["triggerEvent", "result"], function(trigger, result) {
 
   return {
     handle: handleRightClick,
+    canHandle: canHandle,
     execute: rightClick,
     toString: usage
   };
