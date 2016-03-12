@@ -1,23 +1,22 @@
 /*global chrome */
-define("storage", function storage() {
+define("storage", function storage () {
   "use strict";
-  var key = "configuration";
-  var storageArea = null;
+  var storageArea;
   try {
     storageArea = chrome.storage.sync;
   } catch (err) {
     console.log("KeyboardShortcuts > could not initiate chrome storage: " + err);
   }
   return {
-      get : function(callback) {
+      get: function get (key, callback) {
         storageArea.get(key, callback);
       },
-      set : function(value) {
+      set: function set (key, value) {
         var obj = {};
         obj[key] = value;
         storageArea.set(obj);
       },
-      extractValue : function(obj) {
+      extractValue: function (key, obj) {
         return obj[key];
       }
   };

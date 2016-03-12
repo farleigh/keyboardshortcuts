@@ -1,0 +1,31 @@
+<div id="edit-key-{{$index}}" class="edit-form">
+  <h3 data-ng-show="key.sequence || key.name">{{key.sequence}}: {{key.name}}</h3>
+  <div>
+    <label for="url_expression-{{$index}}">URL Expression</label>
+    <input class="extra-wide" type="text" id="url_expression-{{$index}}" name="url_expression" placeholder="Regular expression that matches the page's URL" data-ng-model="shortcuts.cache.key.urlExpression" data-ng-blur="shortcuts.saveEdit()" />
+  </div>
+  <div>
+    <label for="key_sequence-{{$index}}">Key Sequence</label>
+    <input class="extra-wide" type="text" id="key_sequence-{{$index}}" name="key_sequence" placeholder="Key sequence" data-ng-model="shortcuts.cache.key.sequence" data-ng-change="shortcuts.saveEdit()" />
+  </div>
+  <div>
+    <label for="name-{{$index}}">Description</label>
+    <input class="extra-wide" type="text" id="name-{{$index}}" name="name" placeholder="Human Readable Description" data-ng-model="shortcuts.cache.key.name" data-ng-change="shortcuts.saveEdit()" />
+  </div>
+  <div>
+    <label for="query-{{$index}}">Actions</label>
+    <textarea class="full tall code" id="query-{{$index}}" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()"></textarea>
+  </div>
+  <div>
+    <div class="u-pull-left" style="margin-right: 2rem;">
+      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.saveAndClose($event)">Close</button>
+    </div>
+    <div class="u-pull-left">
+      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.revert($event)">Revert Changes</button>
+    </div>
+    <div class="u-pull-right">
+      <button class="button button-trimmed" data-ng-click="shortcuts.removeAndClose($event)">Delete</button>
+    </div>
+    <div class="u-cf"></div>
+  </div>
+</div>

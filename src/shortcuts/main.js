@@ -63,8 +63,9 @@ require(["require", "jquery"], function (require, $) {
      // URLs that match the specified pattern to the page to be listened for.
      // Shortcut keys without a URL pattern are considered to match all URLs.
     var loadShortcuts = function loadShortcuts () {
-      storage.get(function (obj) {
-        var values = storage.extractValue(obj);
+      var key = "configuration";
+      storage.get(key, function (obj) {
+        var values = storage.extractValue(key, obj);
         addHandlers(values);
       });
     };

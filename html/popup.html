@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>Configure Keyboard Shortcuts</title>
@@ -9,11 +8,10 @@
   <link href="css/skeleton.css" rel="stylesheet">
   <link href="css/popup.css" rel="stylesheet">
 </head>
-
 <body>
   <div style="margin: 2rem;" class="container">
     <div>
-      <div class="u-pull-left" style="margin-right: 1em">
+      <div class="u-pull-left" style="margin-right: 1rem">
         <img src="images/icon64.png" alt="KS" />
       </div>
       <div style="padding-top: 2rem;">
@@ -26,9 +24,9 @@
       are a sequence of operations to accomplish an action. See <a href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">Wiki</a> for additional details.
     </p>
     <div style="margin: 1rem 1rem 1rem 0;">
-      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.add()" title="Add a new shortcut key">Add</button>
-      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.openImport()" title="Import shortcut keys from a url">Import</button>
-      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.export()" title="Export shortcut keys to a file">Export</button>
+      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.openAdd()" title="Add a new shortcut key">Add</button>
+      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.openImportKeys()" title="Import shortcut keys from a url">Import</button>
+      <button class="button button-primary button-trimmed" data-ng-click="shortcuts.exportKeys()" title="Export shortcut keys to a file">Export</button>
     </div>
     <div class="edit-form" style="margin-bottom: 2rem;" data-ng-show="shortcuts.editImport">
       <h3>Import keyboard shortcuts from a URL.</h3>
@@ -40,14 +38,15 @@
       <div class="success" id="importSuccess" data-ng-show="shortcuts.importSuccess">{{shortcuts.importSuccess}}</div>
       <div>
         <div class="u-pull-left">
-          <button class="button button-trimmed button-primary" data-ng-click="shortcuts.import($event)" title="Import shortcut keys from a url">Import</button>
+          <button class="button button-trimmed button-primary" data-ng-click="shortcuts.importKeys($event)" title="Import shortcut keys from a url">Import</button>
         </div>
         <div class="u-pull-right">
-          <button class="button button-trimmed" data-ng-click="shortcuts.closeImport($event)">Close</button>
+          <button class="button button-trimmed" data-ng-click="shortcuts.closeImportKeys($event)">Close</button>
         </div>
         <div class="u-cf"></div>
       </div>
     </div>
+    <div data-ng-show="shortcuts.isEditingNew()" data-ng-include="'edit.html'"></div>
     <div data-ng-repeat="group in shortcuts.shortcutKeys | groupBy:'urlExpression':'keysByUrl'">
       <table>
         <caption><h2>URL Expression: {{group.urlExpression}}</h2></td></caption>
@@ -59,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="clickable" data-ng-repeat-start="key in group.items track by $index" data-ng-hide="shortcuts.currentEditKey === key" data-ng-click="shortcuts.edit(key)">
+          <tr class="clickable" data-ng-repeat-start="key in group.items track by $index" data-ng-hide="shortcuts.isEditingKey(key)" data-ng-click="shortcuts.openEdit(key)">
             <td><div>{{key.sequence}}</div></td>
             <td><div>{{key.name}}</div></td>
             <td>
@@ -68,36 +67,9 @@
               </button>
             </td>
           </tr>
-          <tr data-ng-repeat-end="" data-ng-show="shortcuts.currentEditKey === key">
+          <tr data-ng-repeat-end="" data-ng-show="shortcuts.isEditingKey(key)">
             <td colspan="5">
-              <div id="edit-key-{{$index}}" class="edit-form">
-                <h3 data-ng-show="key.sequence || key.name">{{key.sequence}}: {{key.name}}</h3>
-                <div>
-                  <label for="url_expression-{{$index}}">URL Expression</label>
-                  <input class="extra-wide" type="text" id="url_expression-{{$index}}" name="url_expression" placeholder="Regular expression that matches the page's URL" data-ng-model="key.urlExpression" data-ng-model-options="{ updateOn: 'blur' }" data-ng-blur="shortcuts.save()" />
-                </div>
-                <div>
-                  <label for="key_sequence-{{$index}}">Key Sequence</label>
-                  <input class="extra-wide" type="text" id="key_sequence-{{$index}}" name="key_sequence" placeholder="Key sequence" data-ng-model="key.sequence" data-ng-change="shortcuts.save()" />
-                </div>
-                <div>
-                  <label for="name-{{$index}}">Description</label>
-                  <input class="extra-wide" type="text" id="name-{{$index}}" name="name" placeholder="Human Readable Description" data-ng-model="key.name" data-ng-change="shortcuts.save()" />
-                </div>
-                <div>
-                  <label for="query-{{$index}}">Actions</label>
-                  <textarea class="full tall code" id="query-{{$index}}" name="query" placeholder="Actions to run" data-ng-model="key.expression" data-ng-change="shortcuts.save()"></textarea>
-                </div>
-                <div>
-                  <div class="u-pull-left">
-                    <button class="button button-trimmed button-primary" data-ng-click="shortcuts.close($event, key)">Close</button>
-                  </div>
-                  <div class="u-pull-right">
-                    <button class="button button-trimmed" data-ng-click="shortcuts.remove($event, key)">Delete</button>
-                  </div>
-                  <div class="u-cf"></div>
-                </div>
-            </div>
+              <div data-ng-include="'edit.html'"></div>
             </td>
           </tr>
         </tbody>
@@ -114,5 +86,4 @@
   <script src="js/3p/ngGroup-min.js"></script>
   <script src="js/config-bundle.js"></script>
 </body>
-
 </html>

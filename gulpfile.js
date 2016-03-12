@@ -37,9 +37,14 @@ gulp.task("test", function(done) {
 
 gulp.task("copy", function () {
   // copy things that don't need to change location
-  gulp.src(["css/*.css", "images/**/*", "popup.html", "manifest.json"], {
+  gulp.src(["css/**/*", "images/**/*"], {
       base: "."
   }).pipe(gulp.dest(paths.out));
+
+  // copy things that must go to the root
+  gulp.src(["html/**/*", "config/**/*"])
+    .pipe(flatten())
+    .pipe(gulp.dest(paths.out));
 
   // copy js source for config
   gulp.src([paths.src + '/config/**/*.js', paths.src + '/share/**/*.js', paths.src + '/*.js'])
