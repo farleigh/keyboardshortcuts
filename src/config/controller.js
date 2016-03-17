@@ -56,14 +56,11 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     // Delete a key from the array
     function deleteKey (arr, key) {
       var index;
-      console.log("deleting");
       if(!arr || !key) {
         return;
       }
       index = findKey(arr, key);
-      console.log(index);
       if(index > -1) {
-        console.log("deleting from array");
         arr.splice(index, 1);
       }
     }
@@ -185,10 +182,8 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     // Revert the changes and reload
     function revert ($event) {
       if(isEditingNew()) {
-        console.log("This is new - re-adding");
         add();
       } else if(isEditingExisting()) {
-        console.log("Re-adding edit");
         edit(vm.cache.priorKey);
       }
     }
@@ -196,11 +191,9 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     // Remove a shortcut and close the dialog.
     function removeAndClose ($event) {
       if(isEditingExisting()) {
-        console.log("Deleting really");
         deleteKey(vm.shortcutKeys, vm.cache.priorKey);
         save();
       }
-      console.log("Remove closing");
       vm.closeEdit();
     }
 
@@ -238,7 +231,6 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
       // Load imported shortcuts
       function loadShortcuts (shortcuts) {
         var count = 0;
-        console.log(shortcuts);
         if (!shortcuts || !shortcuts.forEach) {
           error("Unable to load shortcuts from the provided URL. URL exists but data is not in the correct format.");
         }
@@ -274,7 +266,6 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
       for(var i = 0; i < arr.length; ++i) {
         if(arr[i] === null || typeof arr[i] === "undefined") {
           arr.splice(i, 1);
-          console.log("Clearing index " + i);
           i -= 1;
         }
       }

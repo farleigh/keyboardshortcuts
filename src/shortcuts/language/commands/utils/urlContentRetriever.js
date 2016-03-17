@@ -3,12 +3,6 @@ define("urlContentRetriever", function() {
   // Url expression format: url(/regex/flags), or url, or url()
   var urlRegex = /^\s*url(?:\s*\((?:\s*\/(.*)\/(.*))?\s*\))?\s*$/i;
 
-  var currWin = window;
-
-  function setWindow(win) {
-    currWin = win;
-  }
-
   function getItemSafely (matches, position) {
     return matches && matches.length > position ? matches[position] : "";
   }
@@ -25,17 +19,18 @@ define("urlContentRetriever", function() {
   }
 
   // Attempt to get content from the URL of matching regex.
-  function getContent (jq, query) {
+  function getContent (jq, query, context) {
     var matches, regexp, value;
     matches = urlRegex.exec(query);
     if(!matches) {
       return { match: false };
     }
-    if(!currWin || !currWin.location || !currWin.location.href) {
+    var win = context && context.window;
+    if(!win || !win.location || !win.location.href) {
       return { match: true, content: "" };
     }
     regexp = buildRegex( getItemSafely(matches, 1), getItemSafely(matches, 2));
-    value = decodeURI(currWin.location.href).match(regexp);
+    value = decodeURI(win.location.href).match(regexp);
     if(value && value.length) {
       value = value[0];
     }
@@ -43,7 +38,6 @@ define("urlContentRetriever", function() {
   }
 
   return {
-      getContent: getContent,
-      setWindow: setWindow
+      getContent: getContent
   };
 });

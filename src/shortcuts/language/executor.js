@@ -1,6 +1,7 @@
 /*global define */
 define("executor", function () {
-  function execute (jq, handlers, statements) {
+
+  function execute (jq, handlers, statements, context) {
     var i, j, handlerKey, handler, stopExecution = false, result;
     if(!statements || !handlers) {
       return true;
@@ -10,7 +11,7 @@ define("executor", function () {
       if(statement) {
         for(handlerKey in handlers) {
           handler = handlers[handlerKey];
-          result = handler.handle(jq, statement, statements, this, handlers);
+          result = handler.handle(jq, statement, context, statements, this, handlers);
           if(result.stopExecution === true) {
             stopExecution = true;
             break;

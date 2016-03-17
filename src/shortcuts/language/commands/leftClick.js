@@ -7,25 +7,25 @@ define("leftClick", ["triggerEvent", "result"], function(trigger, result) {
   // Perform the left click operation (click). Do a blur on the focused
   // element before the left click is performed (but after the element is
   // found).
-  function leftClick (jq, query) {
-    return trigger.execute(jq, query, "click");
+  function leftClick (jq, query, context) {
+    return trigger.execute(jq, query, context, "click");
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
     return false;
   }
 
-  function handleLeftClick (jq, statement) {
+  function handleLeftClick (jq, statement, context) {
     var attribute,
         success,
         matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    success = leftClick(jq, matches[1]);
+    success = leftClick(jq, matches[1], context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

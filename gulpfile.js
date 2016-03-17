@@ -10,11 +10,11 @@ var packageJSON  = require('./package');
 var paths = {
   out: 'dist',
   src: 'src',
-  libs: ['node_modules/almond/almond.js',
-         'node_modules/angular/angular.js',
-         'node_modules/jquery/dist/jquery.js',
-         'node_modules/jquery.hotkeys/jquery.hotkeys.js',
-         'node_modules/ng-group/src/ngGroup.js']
+  libs: [ 'node_modules/almond/almond.js',
+          'node_modules/angular/angular.js',
+          'node_modules/jquery/dist/jquery.js',
+          'node_modules/jquery.hotkeys/jquery.hotkeys.js',
+          'node_modules/ng-group/src/ngGroup.js' ]
 };
 
 gulp.task("clean", function (cb) {

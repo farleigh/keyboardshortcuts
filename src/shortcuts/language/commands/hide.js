@@ -1,21 +1,21 @@
 /*global define */
 // Perform a hide operation (hide) on the element specified by query value.
-define("hide", ["result"], function(result) {
+define("hide", ["elementRetriever", "result"], function(retriever, result) {
   "use strict";
 
   var regex = /^hide\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
   // Perform a hide operation.
-  function hide (jq, query) {
-    var value = jq(query);
-    if (value && value.length > 0) {
-      value.first().hide();
+  function hide (jq, query, context) {
+    var value = retriever.get(jq, query, context);
+    if (value) {
+      value.hide();
       return true;
     }
     return false;
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
@@ -23,13 +23,13 @@ define("hide", ["result"], function(result) {
   }
 
   // Handle intepreting the hide operation.
-  function handleHide (jq, statement) {
+  function handleHide (jq, statement, context) {
     var matches = regex.exec(statement),
         success;
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    success = hide(jq, matches[1]);
+    success = hide(jq, matches[1], context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

@@ -4,27 +4,43 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
 
   var regex = /^touch\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
+  function invokeTouch (el) {
+    var element = el && el.get && typeof el.get === "function" && el.get(0);
+    if(!element) {
+      return false;
+    }
+
+    var touchStart = new TouchEvent("touchstart", {
+      touches: [ new Touch({
+        identifier: 1,
+        target: element
+      }) ]
+    });
+    //element.dispatchEvent(event);
+    return true;
+  }
+
   // Perform the left click operation (click). Do a blur on the focused
   // element before the left click is performed (but after the element is
   // found).
-  function touch (jq, query) {
-    return trigger.execute(jq, query, "touchStart");
+  function touch (jq, query, context) {
+    return trigger.execute(jq, query, context, invokeTouch);
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
     return false;
   }
 
-  function handleTouch (jq, statement) {
+  function handleTouch (jq, statement, context) {
     var success,
         matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    success = touch(jq, matches[1]);
+    success = touch(jq, matches[1], context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

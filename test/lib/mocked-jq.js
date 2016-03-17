@@ -6,7 +6,22 @@ define(function(result) {
 
   function mockJQ(query) {
 
-    var mockData = function mockData (dataName, value) {
+    var mockedOwnerDoc = {
+      createEvent: function createEvent () {
+        calls += "ownerDocument.createEvent();";
+        return {
+          initMouseEvent: function () {
+            calls += "event.initMouseEvent();";
+          }
+        };
+      }
+    };
+
+    function isMockedDoc (query) {
+      return query && query.isMockedDoc && typeof query.isMockedDoc === "function" && query.isMockedDoc();
+    }
+
+    function mockData (dataName, value) {
       calls += "data(";
       calls += dataName;
       if(value) {
@@ -17,9 +32,9 @@ define(function(result) {
       if(!value) {
         return "DATA ATTRIBUTE VALUE TO COPY";
       }
-    };
+    }
 
-    var mockAttr = function mockAttr (attrName, value) {
+    function mockAttr (attrName, value) {
       calls += "attr(";
       calls += attrName;
       if(value) {
@@ -30,9 +45,9 @@ define(function(result) {
       if(!value) {
         return "ATTRIBUTE VALUE TO COPY";
       }
-    };
+    }
 
-    var mockHTML = function mockHTML (value) {
+    function mockHTML (value) {
       calls += "html(";
       if(value) {
         calls += value;
@@ -41,111 +56,132 @@ define(function(result) {
       if(!value) {
         return "ELEMENT CONTENTS TO COPY";
       }
-    };
+    }
 
-    var mockExecCommand = function mockExecCommand () {
+    function mockExecCommand () {
       calls += "execCommand();";
-    };
+    }
 
-    var mockAppendTo = function mockAppendTo (value) {
+    function mockAppendTo (value) {
       calls += "appendTo(" + value + ");";
-    };
+    }
 
-    var mockVal = function mockVal (value) {
+    function mockVal (value) {
       calls += "val(" + value + ");";
       return "VALUE";
-    };
+    }
 
-    var mockSelect = function mockSelect () {
+    function mockSelect () {
       calls += "select();";
-    };
+    }
 
-    var mockRemove = function mockRemove () {
+    function mockRemove () {
       calls += "remove();";
-    };
+    }
 
-    var mockFirst = function mockFirst () {
+    function mockFirst () {
       calls += "first();";
-      return this[0];
-    };
+      return getInstance()[0];
+    }
 
-    var mockHide = function mockHide () {
+    function mockHide () {
       calls += "hide();";
-    };
+    }
 
-    var mockTrigger = function mockTrigger (event) {
+    function mockTrigger (event) {
       calls += "trigger(" + event + ");";
-      return this;
-    };
+      return getInstance();
+    }
 
-    var mockBlur = function mockBlur () {
-        calls += "blur();";
-    };
+    function mockBlur () {
+      calls += "blur();";
+    }
 
-    var mockedOwnerDoc = {
-        createEvent: function createEvent () {
-            calls += "ownerDocument.createEvent();";
-            return {
-                initMouseEvent: function () {
-                    calls += "event.initMouseEvent();";
-                }
-            };
+    function mockGet (index) {
+      calls += "get(" + index + ");";
+      if(!shouldBeFound) {
+        return undefined;
+      }
+      return {
+        ownerDocument: mockedOwnerDoc,
+        dispatchEvent: function () {
+          calls += "ownerDocument.dispatchEvent();";
         }
-    };
+      };
+    }
 
-    var mockGet = function mockGet (index) {
-        calls += "get(" + index + ");";
-        return {
-            ownerDocument: mockedOwnerDoc,
-            dispatchEvent: function () {
-                calls += "ownerDocument.dispatchEvent();";
-            }
-        };
-    };
+    function mockContents () {
+      calls += "contents();";
+      return getInstance();
+    }
 
-    if(shouldBeFound) {
-        // Mock an array that also appears to act as a single element
-        var result = [{
-            data: mockData,
-            attr: mockAttr,
-            html: mockHTML,
-            appendTo: mockAppendTo,
-            val: mockVal,
-            select: mockSelect,
-            remove: mockRemove,
-            execCommand: mockExecCommand,
-            trigger: mockTrigger,
-            blur: mockBlur,
-            ownerDocument: mockedOwnerDoc,
-            get: mockGet,
-            hide: mockHide
-        }];
+    function mockEq (index) {
+      calls += "eq(" + index + ");";
+      if(shouldBeFound) {
+        return getInstance();
+      }
+    }
 
-        result.first = mockFirst;
-        result.appendTo = mockAppendTo;
-        result.val = mockVal;
-        result.select = mockSelect;
-        result.remove = mockRemove;
-        result.execCommand = mockExecCommand;
-        result.trigger = mockTrigger;
-        result.blur = mockBlur;
-        result.ownerDocument = mockedOwnerDoc;
-        result.get = mockGet;
-        result.hide = mockHide;
+    function mockFind (query) {
+      calls += "find(" + query + ");";
+      if(shouldBeFound) {
+        return getInstance();
+      }
+    }
 
+    // Mock an array that also appears to act as a single element
+    function getInstance() {
+      var result = [{
+          data: mockData,
+          attr: mockAttr,
+          html: mockHTML,
+          appendTo: mockAppendTo,
+          val: mockVal,
+          select: mockSelect,
+          remove: mockRemove,
+          execCommand: mockExecCommand,
+          trigger: mockTrigger,
+          blur: mockBlur,
+          ownerDocument: mockedOwnerDoc,
+          get: mockGet,
+          hide: mockHide,
+          contents: mockContents,
+          eq: mockEq,
+          find: mockFind
+      }];
+
+      result.first = mockFirst;
+      result.appendTo = mockAppendTo;
+      result.val = mockVal;
+      result.select = mockSelect;
+      result.remove = mockRemove;
+      result.execCommand = mockExecCommand;
+      result.trigger = mockTrigger;
+      result.blur = mockBlur;
+      result.ownerDocument = mockedOwnerDoc;
+      result.get = mockGet;
+      result.hide = mockHide;
+      result.contents = mockContents;
+      result.eq = mockEq;
+      result.find = mockFind;
+
+      if(shouldBeFound || isMockedDoc(query)) {
         return result;
-    } // else return undefined
+      }
+    }
+
+    return getInstance();
   }
 
-  var getCalls = function getCalls () {
+  function getCalls () {
     var currentCalls = calls;
     calls = "";
     return currentCalls;
-  };
+  }
 
-  var elementFound = function elementFound (found) {
-      shouldBeFound = found;
-  };
+  function elementFound (found) {
+    shouldBeFound = found;
+  }
 
   // Return the mocked instance as instance and helper method getCalls
   // to determine what was called.

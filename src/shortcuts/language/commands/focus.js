@@ -1,21 +1,21 @@
 /*global define */
 // Perform a focus operation (focus) on the element specified by query value.
-define("focus", ["result"], function(result) {
+define("focus", ["elementRetriever", "result"], function(retriever, result) {
   "use strict";
 
   var regex = /^focus\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
   // Perform a focus operation.
-  function focus (jq, query) {
-    var value = jq(query);
-    if (value && value.length > 0) {
-      value.first().trigger("focus");
+  function focus (jq, query, context) {
+    var value = retriever.get(jq, query, context);
+    if (value) {
+      value.trigger("focus");
       return true;
     }
     return false;
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
@@ -23,13 +23,13 @@ define("focus", ["result"], function(result) {
   }
 
   // Handle intepreting the focus operation.
-  function handleFocus (jq, statement) {
+  function handleFocus (jq, statement, context) {
     var success,
         matches = regex.exec(statement);
     if(!matches) {
       return result.NOT_HANDLED;
     }
-    success = focus(jq, matches[1]);
+    success = focus(jq, matches[1], context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 

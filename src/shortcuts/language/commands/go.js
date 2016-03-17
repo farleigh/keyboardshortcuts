@@ -4,15 +4,9 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
 
   var regex = /^go\s*\(\s*(true|false)\s*,\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
   var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
-  var currWin = window;
-
-  function setWindow(win) {
-    currWin = win;
-    contentRetriever.setWindow(win);
-  }
 
   // Get all values
-  function getValues(jq, queries) {
+  function getValues(jq, queries, context) {
     var i = 0, values = [], query;
     if(!queries) {
       return values;
@@ -22,7 +16,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
       if(typeof query === "undefined") {
         continue;
       }
-      values.push(contentRetriever.getContent(jq, query));
+      values.push(contentRetriever.getContent(jq, query, context));
     }
     return values;
   }
@@ -32,27 +26,27 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
   }
 
   // Perform the goToUrl operation (go). Force the current page to go do a different URL.
-  function go (jq, isNewWindow, url, queries) {
+  function go (jq, isNewWindow, url, queries, context) {
     var values = [];
     // get values from strategies
     if(queries && queries.length) {
-      values = getValues(jq, queries);
+      values = getValues(jq, queries, context);
     }
     if(!textStrategy) {
-      throw {message: "Invalid text strategy. Something is wrong!"};
+      throw { message: "Invalid text strategy. Something is wrong!" };
     }
     url = textStrategy.get(url, values);
-    return locationHandler.change(false, currWin, url);
+    return locationHandler.change(false, context.window, url);
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
     return false;
   }
 
-  function handleGo (jq, statement) {
+  function handleGo (jq, statement, context) {
     var success = false,
         matches = regex.exec(statement),
         isNewWindow = false,
@@ -67,7 +61,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
     if(queries) {
       queries = queries.match(queryRegex);
     }
-    success = go(jq, isNewWindow, url, queries);
+    success = go(jq, isNewWindow, url, queries, context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 
@@ -79,7 +73,6 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
     handle: handleGo,
     canHandle: canHandle,
     execute: go,
-    toString: usage,
-    setWindow: setWindow /* Allows for replacing window for testing */
+    toString: usage
   };
 });

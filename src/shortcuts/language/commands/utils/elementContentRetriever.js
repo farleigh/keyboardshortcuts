@@ -1,13 +1,9 @@
 /*global define */
-define("elementContentRetriever", ["elementContentParser"], function(parser) {
+define("elementContentRetriever", ["elementContentParser", "elementRetriever"], function(parser, retriever) {
 
   // Get the first element that matches query
-  function getFirstMatchingElement (jq, query) {
-    var elements = jq(query);
-    if (elements && elements.length) {
-      return elements.first();
-    }
-    return null;
+  function getFirstMatchingElement (jq, query, context) {
+    return retriever.get(jq, query, context);
   }
 
   // Get value from attribute of element
@@ -31,13 +27,13 @@ define("elementContentRetriever", ["elementContentParser"], function(parser) {
 
   // Get content from an attribute if attribute name is specified, otherwise
   // get content from innerHTML.
-  function getContent (jq, query) {
+  function getContent (jq, query, context) {
     var exprObj = parser.parse(query),
         element, value;
     if(!exprObj.match) {
       return { match: false };
     }
-    element = getFirstMatchingElement(jq, exprObj.elementQuery);
+    element = getFirstMatchingElement(jq, exprObj.elementQuery, context);
     if(!element) {
       return { match: true, content: "" };
     }

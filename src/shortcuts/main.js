@@ -33,42 +33,65 @@ require(["require", "jquery"], function (require, $) {
 
     var handlerNamespace = "keydown.keyboardshortcuts";
 
+    var cursorLocation = { x: 0, y: 0 };
+
+    function addMouseWatcher () {
+      $(document).on(
+        "mousemove",
+        function(event) {
+          cursorLocation.x = event.clientX;
+          cursorLocation.y = event.clientY;
+        }
+      );
+    }
+
      // Add a handler for each shortcut key that matches the URL pattern.
-    var addHandler = function addHandler (value) {
-      var handler = function () {
+    function addHandler (value) {
+      var handler = function handler (event) {
         var statements = value.expression && value.expression.split(/\s*;\s*/);
+        var context = {
+          window: window,
+          document: document,
+          event: event,
+          position: cursorLocation
+        };
         if (statements) {
-          executor.execute($, executionHandlers, statements);
+          executor.execute($, executionHandlers, statements, context);
         }
       };
       $(document).on(handlerNamespace, null, value.sequence, handler);
-    };
+    }
 
      // Remove existing handlers and then add new handlers for each shortcut
      // defined in shortcuts.
-    var addHandlers = function addHandlers (shortcuts) {
-      console.log("Removing handlers");
+    function addHandlers (shortcuts) {
+      var hasShortcutsForTab = false;
       $(document).off(handlerNamespace);
-      console.log("Adding handlers");
-      shortcuts.forEach(function(value) {
-        var urlExpr = value.urlExpression || ".*";
-        var regex = new RegExp(value.urlExpression);
-        if (regex.exec(window.location.href, "i")) {
-            addHandler(value);
+      if(shortcuts && shortcuts.length) {
+        shortcuts.forEach(function(value) {
+          var urlExpr = value.urlExpression || ".*";
+          var regex = new RegExp(value.urlExpression);
+          if (regex.exec(window.location.href, "i")) {
+              addHandler(value);
+              hasShortcutsForTab = true;
+          }
+        });
+        if(hasShortcutsForTab) {
+          addMouseWatcher();
         }
-      });
-    };
+      }
+    }
 
      // Retrieve all shortcuts from the data store and add the shortcuts with
      // URLs that match the specified pattern to the page to be listened for.
      // Shortcut keys without a URL pattern are considered to match all URLs.
-    var loadShortcuts = function loadShortcuts () {
+    function loadShortcuts () {
       var key = "configuration";
       storage.get(key, function (obj) {
         var values = storage.extractValue(key, obj);
         addHandlers(values);
       });
-    };
+    }
 
     $.hotkeys.options.filterInputAcceptingElements = false;
     $.hotkeys.options.filterContentEditable = false;

@@ -1,5 +1,5 @@
 /*global define */
-define("wait", ["result", "executor"], function (result, executor) {
+define("wait", ["elementRetriever", "result", "executor"], function (retriever, result, executor) {
   "use strict";
 
   // TODO: Need "execute" dependency!
@@ -15,32 +15,32 @@ define("wait", ["result", "executor"], function (result, executor) {
   // for maxWait will be used. Wait happens by setting a timeout and then
   // returning false on execute so that further expressions will not be
   // evaluated until wait is complete.
- function wait (jq, query, remainingStatements, executor, handlers, minWait, maxWait) {
+ function wait (jq, query, context, remainingStatements, executor, handlers, minWait, maxWait) {
    if (!remainingStatements || !remainingStatements.length) {
      return true;
    }
    minWait = minWait || 200;
    maxWait = maxWait || 2000;
-   waitFor(jq, query, remainingStatements, executor, handlers, minWait, maxWait);
+   waitFor(jq, query, context, remainingStatements, executor, handlers, minWait, maxWait);
  }
 
   // Helper method for wait - this is recursively called by setTimeout. If the
   // element we are selecting is found, then evaluate and execute the
   // remaining statements.
-  function waitFor (jq, query, remainingStatements, executor, handlers, minWait, maxWait) {
-    var elements = $(query);
-    if (elements && elements.length) {
+  function waitFor (jq, query, context, remainingStatements, executor, handlers, minWait, maxWait) {
+    var element = retriever.get(jq, query, context);
+    if (element) {
       return executor.execute(jq, handlers, remainingStatements);
     }
     if (maxWait > 0) {
       maxWait = maxWait - minWait;
       setTimeout(function() {
-          waitFor(jq, query, remainingStatements, executor, handlers, minWait, maxWait);
+          waitFor(jq, query, context, remainingStatements, executor, handlers, minWait, maxWait);
       }, minWait);
     }
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
@@ -48,7 +48,7 @@ define("wait", ["result", "executor"], function (result, executor) {
   }
 
   // Handle processing the wait command
-  function handleWait (jq, statement, remainingStatements, executor, handlers) {
+  function handleWait (jq, statement, context, remainingStatements, executor, handlers) {
     var query,
         minWait,
         maxWait,
@@ -63,7 +63,7 @@ define("wait", ["result", "executor"], function (result, executor) {
     if(matches.length > 3) {
       maxWait = matches[3];
     }
-    wait(jq, matches[1], remainingStatements, executor, handlers, minWait, maxWait);
+    wait(jq, matches[1], context, remainingStatements, executor, handlers, minWait, maxWait);
     return { stopExecution: true };
   }
 

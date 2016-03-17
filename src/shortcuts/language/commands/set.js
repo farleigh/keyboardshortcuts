@@ -6,12 +6,8 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
   var regex = /^set\s*\(([^\)]*\))\s*,\s*"([^"]*)"(?:\s*,\s*(.*))?\s*\)$/i;
   var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
 
-  function setWindow(win) {
-    retriever.setWindow(win);
-  }
-
   // Get all values
-  function getValues (jq, queries) {
+  function getValues (jq, queries, context) {
     var i = 0, values = [], query;
     if(!queries) {
       return values;
@@ -21,7 +17,7 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
       if(typeof query === "undefined") {
         continue;
       }
-      values.push(retriever.getContent(jq, query));
+      values.push(retriever.getContent(jq, query, context));
     }
     return values;
   }
@@ -31,11 +27,11 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
   }
 
   // Perform a set operation.
-  function set (jq, query, value) {
-    return setter.setContent(jq, query, value);
+  function set (jq, query, value, context) {
+    return setter.setContent(jq, query, value, context);
   }
 
-  function canHandle(statement) {
+  function canHandle(statement, context) {
     if(regex.exec(statement)) {
       return true;
     }
@@ -43,7 +39,7 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
   }
 
   // Handle intepreting the set operation.
-  function handleSet (jq, statement) {
+  function handleSet (jq, statement, context) {
     var matches = regex.exec(statement),
         targetQuery,
         queries,
@@ -60,9 +56,9 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
     if(queries) {
       queries = queries.match(queryRegex);
     }
-    values = getValues(jq, queries);
+    values = getValues(jq, queries, context);
     value = textStrategy.get(text, values);
-    success = set(jq, targetQuery, value);
+    success = set(jq, targetQuery, value, context);
     return success ? result.HANDLED : result.NOT_HANDLED;
   }
 
@@ -74,7 +70,6 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
     handle: handleSet,
     canHandle: canHandle,
     execute: set,
-    toString: usage,
-    setWindow: setWindow
+    toString: usage
   };
 });

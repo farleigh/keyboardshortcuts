@@ -4,8 +4,6 @@ define("selectedContentRetriever", function() {
   // Selected expression format: selected(/regex/flags), or selected, or selected()
   var selectedRegex = /^\s*selected(?:\s*\((?:\s*\/(.*)\/(.*))?\s*\))?\s*$/i;
 
-  var currWin = window;
-
   function getItemSafely (matches, position) {
     return matches && matches.length > position ? matches[position] : "";
   }
@@ -21,26 +19,22 @@ define("selectedContentRetriever", function() {
     return new RegExp(regex);
   }
 
-  function getValue() {
-    var value = currWin.getSelection();
+  function getValue(win) {
+    var value = win && win.getSelection && typeof win.getSelection === "function" && win.getSelection();
     if(typeof value === "object") {
       value = value.toString();
     }
     return value;
   }
 
-  function setWindow(win) {
-    currWin = win;
-  }
-
   // Attempt to get content from the URL of matching regex.
-  function getContent (jq, query) {
+  function getContent (jq, query, context) {
     var matches, regexp, value, content;
     matches = selectedRegex.exec(query);
     if(!matches) {
       return { match: false };
     }
-    value = getValue();
+    value = getValue(context.window);
     if(!value) {
       return { match: true, content: "" };
     }
@@ -53,7 +47,6 @@ define("selectedContentRetriever", function() {
   }
 
   return {
-      getContent: getContent,
-      setWindow: setWindow
+      getContent: getContent
   };
 });

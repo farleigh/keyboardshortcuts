@@ -1,13 +1,9 @@
 /*global define, RegExp*/
-define("elementContentSetter", ["elementContentParser"], function(parser) {
+define("elementContentSetter", ["elementContentParser", "elementRetriever"], function(parser, retriever) {
 
   // Get the first element that matches query
-  function getFirstMatchingElement (jq, query) {
-    var elements = jq(query);
-    if (elements && elements.length) {
-      return elements.first();
-    }
-    return null;
+  function getFirstMatchingElement (jq, query, context) {
+    return retriever.get(jq, query, context);
   }
 
   // Get value from attribute of element
@@ -31,12 +27,12 @@ define("elementContentSetter", ["elementContentParser"], function(parser) {
 
   // Set content to an attribute if attribute name is specified, otherwise
   // set content from innerHTML.
-  function setContent (jq, query, value) {
+  function setContent (jq, query, value, context) {
     var exprObj = parser.parse(query), element;
     if(!value) {
       return false;
     }
-    element = getFirstMatchingElement(jq, exprObj.elementQuery);
+    element = getFirstMatchingElement(jq, exprObj.elementQuery, context);
     if(!element) {
       return false;
     }
