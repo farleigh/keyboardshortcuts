@@ -1,6 +1,6 @@
 /*global define */
 // Perform a hover operation on element specified with query.
-define("hover", ["elementRetriever", "triggerEvent", "result"], function(retriever, trigger, result) {
+define("hover", ["triggerEvent", "result"], function(trigger, result) {
   "use strict";
 
   var regex = /^hover\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;

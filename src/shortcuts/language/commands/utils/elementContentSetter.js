@@ -3,7 +3,7 @@ define("elementContentSetter", ["elementContentParser", "elementRetriever"], fun
 
   // Get the first element that matches query
   function getFirstMatchingElement (jq, query, context) {
-    return retriever.get(jq, query, context);
+     return retriever.get(jq, query, context);
   }
 
   // Get value from attribute of element

@@ -164,13 +164,12 @@ define(function(result) {
       result.contents = mockContents;
       result.eq = mockEq;
       result.find = mockFind;
-
-      if(shouldBeFound || isMockedDoc(query)) {
-        return result;
-      }
+      return result;
     }
-
-    return getInstance();
+    
+    if(shouldBeFound || isMockedDoc(query)) {
+      return getInstance();
+    }
   }
 
   function getCalls () {

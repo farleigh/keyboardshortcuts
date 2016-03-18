@@ -5,7 +5,7 @@
   "homepage_url": "https://github.com/farleigh/keyboardshortcuts/wiki",
   "content_scripts": [{
      "matches": ["http://*/*", "https://*/*"],
-     "js": ["js/3p/almond-min.js", "js/3p/jquery-min.js", "js/3p/jquery.hotkeys-min.js", "js/keyboard-shortcuts-bundle.js"]
+     "js": ["js/3p/almond-min.js", "js/3p/jquery.js", "js/3p/jquery.hotkeys-min.js", "js/keyboard-shortcuts-bundle.js"]
    }],
   "content_security_policy": "script-src 'self'; object-src 'self'",
    "permissions": [

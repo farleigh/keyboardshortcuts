@@ -1,4 +1,10 @@
 define("triggerEvent", ["elementRetriever"], function(retriever) {
+
+  // Get the first element that matches query
+  function getFirstMatchingElement (jq, query, context) {
+    return retriever.get(jq, query, context);
+  }
+
   // Trigger an event on first element matched by query using jq
   // (jq needs to support the JQuery API).
   function triggerEvent(jq, query, context, event) {
@@ -17,7 +23,7 @@ define("triggerEvent", ["elementRetriever"], function(retriever) {
     if(typeof query !== "string" || typeof fcn !== "function" ) {
       return false;
     }
-    result = retriever.get(jq, query, context);
+    result = getFirstMatchingElement(jq, query, context);
     if(result) {
       try {
         jq(":focus").blur();

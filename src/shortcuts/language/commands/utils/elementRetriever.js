@@ -5,18 +5,17 @@ define("elementRetriever", function() {
 
   // Get the element
   function getElement (jq, query, context) {
-    var point = context && context.point,
-        doc = context && context.document,
-        el = queryForElement(jq, jq(doc), query, context);
+    var doc = context && context.document;
+    var el = queryForElement(jq, jq(doc), query, context);
     // If element does not exist in the main page, check any iframes.
-    if(!el || !el.length) {
+    if(!el) {
       // Note: Querying within iframes may blow up if the iframe is
       // from a different URL. There is nothing I can do about this.
-      queryEach(jq("iframe"), function (element) {
+      el = queryEach(jq("iframe"), function (element) {
         return queryForElement(jq, element.contents(), query, context);
       });
     }
-    return el && el.first();
+    return el;
   }
 
   function queryEach(elements, find) {
@@ -39,7 +38,9 @@ define("elementRetriever", function() {
     } else {
       el = root.find(query);
     }
-    return el;
+    if(el && el.length) {
+      return el.first();
+    }
   }
 
   // Get the current element

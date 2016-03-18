@@ -1,18 +1,13 @@
 /*global define */
 // Perform a focus operation (focus) on the element specified by query value.
-define("focus", ["elementRetriever", "result"], function(retriever, result) {
+define("focus", ["triggerEvent", "result"], function(trigger, result) {
   "use strict";
 
   var regex = /^focus\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
   // Perform a focus operation.
   function focus (jq, query, context) {
-    var value = retriever.get(jq, query, context);
-    if (value) {
-      value.trigger("focus");
-      return true;
-    }
-    return false;
+    return trigger.execute(jq, query, context, "focus");
   }
 
   function canHandle(statement, context) {
