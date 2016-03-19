@@ -2,21 +2,22 @@
 define("touch", ["triggerEvent", "result"], function (trigger, result) {
   "use strict";
 
-  var regex = /^touch\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
+  var regex = /^touch-start\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
-  function invokeTouch (el) {
+  function invokeTouch (el, context) {
     var element = el && el.get && typeof el.get === "function" && el.get(0);
     if(!element) {
       return false;
     }
 
-    var touchStart = new TouchEvent("touchstart", {
+    var touchStartEvent = new TouchEvent("touchstart", {
       touches: [ new Touch({
-        identifier: 1,
-        target: element
+        identifier: Math.random() /* super half baked attempt at uniqueness */,
+        target: element,
       }) ]
     });
-    //element.dispatchEvent(event);
+    console.log("Made it");
+    element.dispatchEvent(touchStartEvent);
     return true;
   }
 
@@ -27,14 +28,12 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
     return trigger.execute(jq, query, context, invokeTouch);
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
-  function handleTouch (jq, statement, context) {
+  // Handle touch start
+  function handleTouchStart (jq, statement, context) {
     var success,
         matches = regex.exec(statement);
     if(!matches) {
@@ -45,11 +44,11 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
   }
 
   function usage () {
-    return 'Usage: touch("query"); Touch element that matches query. If more than one element matches query then uses the first.';
+    return 'Usage: touch-start("query"); Touch element that matches query. If more than one element matches query then uses the first.';
   }
 
   return {
-    handle: handleTouch,
+    handle: handleTouchStart,
     canHandle: canHandle,
     execute: touch,
     toString: usage

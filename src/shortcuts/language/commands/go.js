@@ -6,7 +6,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
   var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
 
   // Get all values
-  function getValues(jq, queries, context) {
+  function getValues (jq, queries, context) {
     var i = 0, values = [], query;
     if(!queries) {
       return values;
@@ -39,11 +39,8 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
     return locationHandler.change(false, context.window, url);
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   function handleGo (jq, statement, context) {

@@ -6,15 +6,12 @@ define("hover", ["triggerEvent", "result"], function(trigger, result) {
   var regex = /^hover\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
 
   // Perform a hover operation (hover).
-  function hover(jq, query, context) {
+  function hover (jq, query, context) {
     return trigger.execute(jq, query, context, "mouseenter");
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   function handleHover (jq, statement, context) {

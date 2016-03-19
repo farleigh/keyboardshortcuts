@@ -30,7 +30,7 @@ define("triggerEvent", ["elementRetriever"], function(retriever) {
       } catch(e) {
         console.log("Error trying to blur focus.");
       }
-      fcn(result);
+      fcn(result, context);
       return true;
     }
     return false;

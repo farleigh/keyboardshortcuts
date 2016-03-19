@@ -31,11 +31,8 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
     return setter.setContent(jq, query, value, context);
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   // Handle intepreting the set operation.

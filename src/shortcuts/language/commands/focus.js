@@ -10,11 +10,8 @@ define("focus", ["triggerEvent", "result"], function(trigger, result) {
     return trigger.execute(jq, query, context, "focus");
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   // Handle intepreting the focus operation.

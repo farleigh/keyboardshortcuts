@@ -1,4 +1,5 @@
 <div id="edit-key-{{$index}}" class="edit-form">
+  <div class="u-pull-right clickable" style="border-radius: 2px; margin: -8px 0 0 8px; border: solid 1px black; padding: 2px 5px;" data-ng-click="shortcuts.closeEdit()">X</div>
   <h3 data-ng-show="key.sequence || key.name">{{key.sequence}}: {{key.name}}</h3>
   <div>
     <label for="url_expression-{{$index}}">URL Expression</label>
@@ -16,15 +17,15 @@
     <label for="query-{{$index}}">Actions</label>
     <textarea class="full tall code" id="query-{{$index}}" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()"></textarea>
   </div>
-  <div>
+  <div style="margin-top: 2rem">
     <div class="u-pull-left" style="margin-right: 2rem;">
-      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.saveAndClose($event)">Close</button>
+      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.saveAndClose()">Save</button>
     </div>
     <div class="u-pull-left">
-      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.revert($event)">Revert Changes</button>
+      <button class="button button-trimmed button-primary" data-ng-click="shortcuts.revert()">Revert Changes</button>
     </div>
     <div class="u-pull-right">
-      <button class="button button-trimmed" data-ng-click="shortcuts.removeAndClose($event)">Delete</button>
+      <button class="button button-trimmed" data-ng-click="shortcuts.removeAndClose()">Delete</button>
     </div>
     <div class="u-cf"></div>
   </div>

@@ -33,11 +33,8 @@ define("copy", ["contentRetriever", "result"], function(contentRetriever, result
   }
 
   // Can this command handle the statement?
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   // Return true if copy can handle this command.

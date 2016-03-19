@@ -169,7 +169,7 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     }
 
     // Save the shortcut into the array and close the dialog.
-    function saveAndClose ($event) {
+    function saveAndClose () {
       if(isEditingNew()) {
         addKey(vm.shortcutKeys, vm.cache.key);
       } else {

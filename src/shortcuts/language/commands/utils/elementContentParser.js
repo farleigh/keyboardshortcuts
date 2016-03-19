@@ -22,7 +22,8 @@ define("elementContentParser", function() {
     return new RegExp(regex);
   }
 
-  function parse(query) {
+  // Parse the expression
+  function parse (query) {
     var matches, elementQuery, attributeName, regex, flags;
     matches = elRegex.exec(query);
     if(!matches) {
@@ -44,7 +45,19 @@ define("elementContentParser", function() {
     };
   }
 
+  // Return true if we can parse
+  function canParse () {
+    if(elRegex.test(query)) {
+      return true;
+    }
+    if(oldElRegex.test(query)) {
+      return true;
+    }
+    return false;
+  }
+
   return {
-    parse: parse
+    parse: parse,
+    canParse: canParse
   };
 });

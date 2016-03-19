@@ -27,10 +27,7 @@ define("rightClick", ["triggerEvent", "result"], function(trigger, result) {
   }
 
   function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+    return regex.test(statement);
   }
 
   // Return handled if right click handles this command.

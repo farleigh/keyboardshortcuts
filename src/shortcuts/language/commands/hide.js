@@ -15,11 +15,8 @@ define("hide", ["elementRetriever", "result"], function(retriever, result) {
     return false;
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   // Handle intepreting the hide operation.

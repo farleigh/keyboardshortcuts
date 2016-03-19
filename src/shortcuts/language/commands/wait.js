@@ -40,11 +40,8 @@ define("wait", ["elementRetriever", "result", "executor"], function (retriever, 
     }
   }
 
-  function canHandle(statement, context) {
-    if(regex.exec(statement)) {
-      return true;
-    }
-    return false;
+  function canHandle (statement, context) {
+    return regex.test(statement);
   }
 
   // Handle processing the wait command
