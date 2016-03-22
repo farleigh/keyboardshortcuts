@@ -1,5 +1,5 @@
-/*global jQuery, chrome */
-require(["require", "jquery"], function (require, $) {
+/*global chrome, mousetrap */
+require(["require", "jquery", "mousetrap"], function (require, $, mousetrap) {
     "use strict";
 
     // Commands
@@ -9,7 +9,7 @@ require(["require", "jquery"], function (require, $) {
     var hover = require("hover");
     var leftClick = require("leftClick");
     var rightClick = require("rightClick");
-    var touch = require("touch");
+    var touch = require("touchStart");
     var wait = require("wait");
     var go = require("go");
     var hide = require("hide");
@@ -45,6 +45,21 @@ require(["require", "jquery"], function (require, $) {
       );
     }
 
+    var keySequences = [];
+
+    // Unbind all bound handlers
+    function off (mousetrap) {
+      keySequences.forEach(function (keySequence) {
+        mousetrap.unbind(keySequence);
+      });
+    }
+
+    // Bind one handler
+    function on (mousetrap, keySequence, fcn) {
+      mousetrap.bind(keySequence, fcn);
+      keySequences.push(keySequence);
+    }
+
      // Add a handler for each shortcut key that matches the URL pattern.
     function addHandler (value) {
       var handler = function handler (event) {
@@ -59,14 +74,14 @@ require(["require", "jquery"], function (require, $) {
           executor.execute($, executionHandlers, statements, context);
         }
       };
-      $(document).on(handlerNamespace, null, value.sequence, handler);
+      on(mousetrap, value.sequence, handler);
     }
 
      // Remove existing handlers and then add new handlers for each shortcut
      // defined in shortcuts.
     function addHandlers (shortcuts) {
       var hasShortcutsForTab = false;
-      $(document).off(handlerNamespace);
+      off(mousetrap);
       if(shortcuts && shortcuts.length) {
         shortcuts.forEach(function(value) {
           var urlExpr = value.urlExpression || ".*";
@@ -92,10 +107,6 @@ require(["require", "jquery"], function (require, $) {
         addHandlers(values);
       });
     }
-
-    $.hotkeys.options.filterInputAcceptingElements = false;
-    $.hotkeys.options.filterContentEditable = false;
-    $.hotkeys.options.filterTextInputs = false;
 
     // Add a listener for messages received from the popup
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

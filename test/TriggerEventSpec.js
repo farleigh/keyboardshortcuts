@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["triggerEvent", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (trigger, mockedJQ, mockedDoc) {
+define("TriggerEventSpec", ["triggerEvent", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (trigger, mockedJQ, mockedDoc) {
     "use strict";
 
     describe("Trigger Event", function () {

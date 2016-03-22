@@ -1,5 +1,5 @@
 // A low budget way to mock jquery - can be replaced if mocking needs get more complex.
-define(function(result) {
+define("mocked-jq", function(result) {
   "use strict";
   var calls = "";
   var shouldBeFound = true;
@@ -166,7 +166,7 @@ define(function(result) {
       result.find = mockFind;
       return result;
     }
-    
+
     if(shouldBeFound || isMockedDoc(query)) {
       return getInstance();
     }

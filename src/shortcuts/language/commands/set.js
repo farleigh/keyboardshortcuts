@@ -60,7 +60,7 @@ define("set", ["result", "contentRetriever", "elementContentSetter", "templatedT
   }
 
   function usage () {
-    return 'Usage: set(el("query", "attribute" /regex/flags), "templatedText", el("query", attribute", /regex/flags) | url(/regex/flags) | selected(/regex/flags)); Hides an element specified by query.  If more than one element matches query then uses the first.';
+    return 'Usage: set(el("query", "attribute"), "templatedText", el("query", attribute", /regex/flags) | url(/regex/flags) | selected(/regex/flags)); Hides an element specified by query.  If more than one element matches query then uses the first.';
   }
 
   return {

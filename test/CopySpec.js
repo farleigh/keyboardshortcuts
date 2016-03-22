@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["copy", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(copy, mockedJQ, mockedDoc) {
+define("CopySpec", ["copy", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(copy, mockedJQ, mockedDoc) {
   "use strict";
 
   describe("Copy Command", function() {

@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["touch", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (touch, mockedJQ, mockedDoc) {
+define(["touchStart", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (touch, mockedJQ, mockedDoc) {
     "use strict";
 
     describe("Touch Start Command", function () {

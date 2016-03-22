@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["elementContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedDoc) {
+define("ElementContentRetrieverSpec", ["elementContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedDoc) {
   "use strict";
   describe("Element Content Retriever", function () {
     it("should get content from an element (old style with quotes).", function () {

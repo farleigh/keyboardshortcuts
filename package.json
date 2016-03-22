@@ -1,13 +1,15 @@
 {
   "name": "keyboardshortcuts",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farleigh/keyboardshortcuts.git"
+  },
   "scripts": {
-    "build": "gulp default",
+    "build": "gulp",
     "test": "gulp test"
   },
   "devDependencies": {
-    "almond": "^0.3.1",
-    "angular": "^1.5.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.2.0",
@@ -15,19 +17,24 @@
     "gulp-minify": "0.0.5",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
-    "jquery": "^2.2.2",
-    "jquery.hotkeys": "^0.1.0",
     "jshint": "^2.8.0",
     "karma": "^0.13.16",
     "karma-chrome-launcher": "^0.2.2",
     "karma-cli": "^0.1.2",
     "karma-jasmine": "^0.3.6",
     "karma-requirejs": "^0.2.2",
-    "ng-group": "git+https://github.com/samstokes/ng-group.git",
     "requirejs": "^2.1.22",
     "rimraf": "^2.5.0"
   },
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "angular": "^1.5.0",
+    "ng-group": "git+https://github.com/samstokes/ng-group.git",
+    "almond": "^0.3.1", 
+    "mousetrap": "git+https://github.com/farleigh/mousetrap.git"
+  },
   "jshintConfig": {
     "eqnull": true
-  }
+  },
+  "license": "MIT"
 }

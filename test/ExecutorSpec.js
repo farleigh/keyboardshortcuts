@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect, JSON */
-define(["executor", "result", "test/lib/mocked-jq"], function (executor, result, mockedJQ) {
+define("ExecutorSpec", ["executor", "result", "test/lib/mocked-jq"], function (executor, result, mockedJQ) {
     "use strict";
 
     var handled, notHandled, handlers;

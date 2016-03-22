@@ -1,5 +1,5 @@
 /*global define */
-define("touch", ["triggerEvent", "result"], function (trigger, result) {
+define("touchStart", ["triggerEvent", "result"], function (trigger, result) {
   "use strict";
 
   var regex = /^touch-start\s*\(\s*(?:")([^"]+)(?:")\s*\)$/i;
@@ -16,7 +16,6 @@ define("touch", ["triggerEvent", "result"], function (trigger, result) {
         target: element,
       }) ]
     });
-    console.log("Made it");
     element.dispatchEvent(touchStartEvent);
     return true;
   }

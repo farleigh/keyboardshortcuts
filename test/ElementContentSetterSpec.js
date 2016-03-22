@@ -1,5 +1,5 @@
 /*global define, describe, require, it, expect */
-define(["elementContentSetter", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(setter, mockedJQ, mockedDoc) {
+define("ElementContentSetterSpec", ["elementContentSetter", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(setter, mockedJQ, mockedDoc) {
   "use strict";
   describe("Element Content Setter", function () {
     it("should set content to an element innerHTML.", function () {

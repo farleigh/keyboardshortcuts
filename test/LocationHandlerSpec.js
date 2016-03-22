@@ -1,7 +1,7 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["locationHandler", "test/lib/mocked-window"], function(locationHandler, mockedWindow) {
+define("LocationHandlerSpec", ["locationHandler", "test/lib/mocked-window"], function(locationHandler, mockedWindow) {
   "use strict";
-  
+
   describe("Location Handler", function() {
     it("should change location.", function() {
       expect(locationHandler.change(false, mockedWindow.instance, "https://www.google.com/")).toEqual(true);

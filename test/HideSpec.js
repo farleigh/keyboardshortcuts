@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["hide", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(hide, mockedJQ, mockedDoc) {
+define("HideSpec", ["hide", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(hide, mockedJQ, mockedDoc) {
     "use strict";
 
     describe("Hide command", function() {

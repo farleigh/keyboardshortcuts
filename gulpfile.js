@@ -13,7 +13,7 @@ var paths = {
   libs: [ 'node_modules/almond/almond.js',
           'node_modules/angular/angular.js',
           'node_modules/jquery/dist/jquery.js',
-          'node_modules/jquery.hotkeys/jquery.hotkeys.js',
+          'node_modules/mousetrap/mousetrap.js',
           'node_modules/ng-group/src/ngGroup.js' ]
 };
 

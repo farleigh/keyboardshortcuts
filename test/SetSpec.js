@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["set", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(set, mockedJQ, mockedWindow, mockedDoc) {
+define("SetSpec", ["set", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(set, mockedJQ, mockedWindow, mockedDoc) {
   "use strict";
 
   describe("Set command", function() {

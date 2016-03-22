@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define(["leftClick", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (leftClick, mockedJQ, mockedDoc) {
+define("LeftClickSpec", ["leftClick", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (leftClick, mockedJQ, mockedDoc) {
     "use strict";
 
     describe("Left Click Command", function () {

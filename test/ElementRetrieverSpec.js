@@ -1,5 +1,5 @@
 /*global define, describe, require, it, expect */
-define(["elementRetriever", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedDoc) {
+define("ElementRetrieverSpec", ["elementRetriever", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedDoc) {
   "use strict";
 
   describe("Element Retriever", function () {
