@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("UrlRetrieverSpec", ["urlContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window"], function(retriever, mockedJQ, mockedWindow) {
+define(["urlContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window"], function(retriever, mockedJQ, mockedWindow) {
   "use strict";
 
   describe("URL Content Retriever", function () {

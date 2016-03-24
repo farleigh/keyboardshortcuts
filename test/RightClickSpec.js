@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("RightClickSpec", ["rightClick", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (rightClick, mockedJQ, mockedDoc) {
+define(["rightClick", "test/lib/mocked-jq", "test/lib/mocked-doc"], function (rightClick, mockedJQ, mockedDoc) {
   "use strict";
 
   describe("Right Click Command", function () {

@@ -1,9 +1,20 @@
 /*global define */
-define("executor", function () {
+define("executor", ["contentRetriever"], function (contentRetriever) {
 
-  function execute (jq, handlers, statements, context) {
+  // Return true if the expression should be run.
+  function isTime (jq, when, context) {
+    var result;
+    if(!when) {
+      return true;
+    }
+    result = contentRetriever.getContent(jq, when, context);
+    return result !== "" && result !== undefined && result !== null;
+  }
+
+  function execute (jq, when, handlers, statements, context) {
     var i, j, handlerKey, handler, stopExecution = false, result;
-    if(!statements || !handlers) {
+    // If not statements or handlers then simply return
+    if(!statements || !handlers || !isTime(jq, when, context)) {
       return true;
     }
     while(statements.length > 0) {

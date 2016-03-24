@@ -71,7 +71,7 @@ require(["require", "jquery", "mousetrap"], function (require, $, mousetrap) {
           position: cursorLocation
         };
         if (statements) {
-          executor.execute($, executionHandlers, statements, context);
+          executor.execute($, value.when, executionHandlers, statements, context);
         }
       };
       on(mousetrap, value.sequence, handler);

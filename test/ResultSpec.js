@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("ResultSpec", ["result"], function(result) {
+define(["result"], function(result) {
   "use strict";
 
   describe("Result", function() {

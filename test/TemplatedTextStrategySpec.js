@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("TemplatedTextStrategySpec", ["templatedTextStrategy", "test/lib/mocked-jq"], function (textStrategy, mockedJQ) {
+define(["templatedTextStrategy", "test/lib/mocked-jq"], function (textStrategy, mockedJQ) {
     "use strict";
 
     describe("GetUrl", function () {

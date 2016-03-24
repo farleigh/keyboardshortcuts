@@ -119,3 +119,7 @@ textarea.full, select.full, input.full {
 textarea.tall {
 	height: 20rem;
 }
+
+label > * {
+  font-weight: normal;
+}

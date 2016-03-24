@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("FocusSpec", ["focus", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(focus, mockedJQ, mockedDoc) {
+define(["focus", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(focus, mockedJQ, mockedDoc) {
     "use strict";
 
     describe("Focus command", function() {

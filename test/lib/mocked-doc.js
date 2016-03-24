@@ -1,5 +1,5 @@
 // Mock the document
-define("mocked-doc", function() {
+define(function() {
 
   var calls = "";
 

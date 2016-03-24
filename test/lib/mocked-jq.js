@@ -1,5 +1,5 @@
 // A low budget way to mock jquery - can be replaced if mocking needs get more complex.
-define("mocked-jq", function(result) {
+define(function(result) {
   "use strict";
   var calls = "";
   var shouldBeFound = true;

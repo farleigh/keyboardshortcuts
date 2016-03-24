@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("GoSpec", ["go", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(go, mockedJQ, mockedWindow, mockedDoc) {
+define(["go", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(go, mockedJQ, mockedWindow, mockedDoc) {
   "use strict";
 
   describe("Go command", function() {

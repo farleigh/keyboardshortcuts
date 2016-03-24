@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("HoverSpec", ["hover", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(hover, mockedJQ, mockedDoc) {
+define(["hover", "test/lib/mocked-jq", "test/lib/mocked-doc"], function(hover, mockedJQ, mockedDoc) {
   "use strict";
 
   describe("Hover command", function() {

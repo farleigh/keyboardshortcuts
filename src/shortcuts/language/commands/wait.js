@@ -30,7 +30,7 @@ define("wait", ["elementRetriever", "result", "executor"], function (retriever, 
   function waitFor (jq, query, context, remainingStatements, executor, handlers, minWait, maxWait) {
     var element = retriever.get(jq, query, context);
     if (element) {
-      return executor.execute(jq, handlers, remainingStatements, context);
+      return executor.execute(jq, "", handlers, remainingStatements, context);
     }
     if (maxWait > 0) {
       maxWait = maxWait - minWait;

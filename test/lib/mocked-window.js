@@ -1,5 +1,5 @@
 // Mock the url strategy - we don't really want to test it.
-define("mocked-window", function(result) {
+define(function(result) {
   "use strict";
 
   var mockedWindow = {

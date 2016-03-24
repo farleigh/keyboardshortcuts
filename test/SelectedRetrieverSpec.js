@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("SelectedRetrieverSpec", ["selectedContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedWindow, mockedDoc) {
+define(["selectedContentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-doc"], function(retriever, mockedJQ, mockedWindow, mockedDoc) {
   "use strict";
 
   describe("User Selected Text Content Retriever", function () {

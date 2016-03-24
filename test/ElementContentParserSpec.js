@@ -1,4 +1,4 @@
-define("ElementContentParserSpec", ["elementContentParser"], function(parser) {
+define(["elementContentParser"], function(parser) {
   "use strict";
   describe("Element Content Parser", function () {
     it("parses element query in quotes", function () {

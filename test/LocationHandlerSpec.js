@@ -1,5 +1,5 @@
 /*global define, describe, require, beforeEach, it, expect */
-define("LocationHandlerSpec", ["locationHandler", "test/lib/mocked-window"], function(locationHandler, mockedWindow) {
+define(["locationHandler", "test/lib/mocked-window"], function(locationHandler, mockedWindow) {
   "use strict";
 
   describe("Location Handler", function() {

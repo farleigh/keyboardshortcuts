@@ -72,7 +72,9 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     function equals(key1, key2) {
       return key1.urlExpression === key2.urlExpression &&
              key1.name === key2.name &&
-             key1.key === key2.key;
+             key1.sequence === key2.sequence &&
+             key1.when === key2.when &&
+             key1.expression === key2.expression;
     }
 
     // A low budget clone method
@@ -170,12 +172,14 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
 
     // Save the shortcut into the array and close the dialog.
     function saveAndClose () {
-      if(isEditingNew()) {
-        addKey(vm.shortcutKeys, vm.cache.key);
-      } else {
-        replaceKey(vm.shortcutKeys, vm.cache.key, vm.cache.priorKey);
+      if(findKey(vm.shortcutKeys, vm.cache.key) === -1) {
+        if(isEditingNew()) {
+          addKey(vm.shortcutKeys, vm.cache.key);
+        } else {
+          replaceKey(vm.shortcutKeys, vm.cache.key, vm.cache.priorKey);
+        }
+        save(); // save to array
       }
-      save(); // save to array
       closeEdit(); // clear the edit
     }
 
@@ -220,10 +224,8 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
         if (!shortcut) {
           return true; // return true for now so caller doesn't try to add to set.
         }
-        for (var i = 0; i < vm.shortcutKeys.length; i += 1) {
-          if(equals(shortcut, vm.shortcutKeys[i])) {
-            return true;
-          }
+        if(findKey(vm.shortcutKeys, shortcut) > -1) {
+          return true;
         }
         return false;
       }

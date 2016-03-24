@@ -2,20 +2,29 @@
   <div class="u-pull-right clickable" style="border-radius: 2px; margin: -8px 0 0 8px; border: solid 1px black; padding: 2px 5px;" data-ng-click="shortcuts.closeEdit()">X</div>
   <h3 data-ng-show="key.sequence || key.name">{{key.sequence}}: {{key.name}}</h3>
   <div>
-    <label for="url_expression-{{$index}}">URL Expression</label>
-    <input class="extra-wide" type="text" id="url_expression-{{$index}}" name="url_expression" placeholder="Regular expression that matches the page's URL" data-ng-model="shortcuts.cache.key.urlExpression" data-ng-blur="shortcuts.saveEdit()" />
+    <label>URL Expression
+      <input class="extra-wide" type="text" name="url_expression" placeholder="Regular expression that matches the page's URL" data-ng-model="shortcuts.cache.key.urlExpression" data-ng-blur="shortcuts.saveEdit()" />
+    </label>
   </div>
   <div>
-    <label for="key_sequence-{{$index}}">Key Sequence</label>
-    <input class="extra-wide" type="text" id="key_sequence-{{$index}}" name="key_sequence" placeholder="Key sequence" data-ng-model="shortcuts.cache.key.sequence" data-ng-change="shortcuts.saveEdit()" />
+    <label>Key Sequence
+      <input class="extra-wide" type="text" name="key_sequence" placeholder="Key sequence" data-ng-model="shortcuts.cache.key.sequence" data-ng-change="shortcuts.saveEdit()" />
+    </label>
   </div>
   <div>
-    <label for="name-{{$index}}">Description</label>
-    <input class="extra-wide" type="text" id="name-{{$index}}" name="name" placeholder="Human Readable Description" data-ng-model="shortcuts.cache.key.name" data-ng-change="shortcuts.saveEdit()" />
+    <label>Description
+      <input class="extra-wide" type="text" name="name" placeholder="Human Readable Description" data-ng-model="shortcuts.cache.key.name" data-ng-change="shortcuts.saveEdit()" />
+    </label>
   </div>
   <div>
-    <label for="query-{{$index}}">Actions</label>
-    <textarea class="full tall code" id="query-{{$index}}" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()"></textarea>
+    <label>Run When
+      <input class="extra-wide" type="text" name="when" placeholder="If provided, expression must evaluate to non-falsy value" data-ng-model="shortcuts.cache.key.when" data-ng-change="shortcuts.saveEdit()" />
+    </label>
+  </div>
+  <div>
+    <label>Actions
+      <textarea class="full tall code" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()"></textarea>
+    </label>
   </div>
   <div style="margin-top: 2rem">
     <div class="u-pull-left" style="margin-right: 2rem;">
