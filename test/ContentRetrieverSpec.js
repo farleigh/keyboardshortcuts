@@ -21,12 +21,12 @@ define(["contentRetriever", "test/lib/mocked-jq", "test/lib/mocked-window", "tes
 
     it("should get content from an element (new el function style).", function () {
         expect(retriever.getContent(mockedJQ.instance, "el(\"#myElement\")", { window: win, document: mockedDoc.instance })).toEqual("ELEMENT CONTENTS TO COPY");
-        expect(mockedJQ.getCalls()).toEqual("find(#myElement);first();html();");
+        expect(mockedJQ.getCalls()).toEqual("find(#myElement);html();");
     });
 
     it("should get content from an element (old style with quotes).", function () {
         expect(retriever.getContent(mockedJQ.instance, "\"#myElement\"", { window: win, document: mockedDoc.instance })).toEqual("ELEMENT CONTENTS TO COPY");
-        expect(mockedJQ.getCalls()).toEqual("find(#myElement);first();html();");
+        expect(mockedJQ.getCalls()).toEqual("find(#myElement);html();");
     });
 
     it("should get not get content from a non-matching request.", function () {

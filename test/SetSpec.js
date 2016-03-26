@@ -15,12 +15,12 @@ define(["set", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-
     it("should set value into an element.", function() {
 
         expect(set.handle(mockedJQ.instance, "set(el(\"#myElement\"), \"${0}, ${1}\", el(\"#myOtherElement\"), el(\"#myOtherElement\", \"myAttribute\"))", { window: win, document: mockedDoc.instance })).toEqual({ handled: true, stop: false});
-        expect(mockedJQ.getCalls()).toEqual("find(#myOtherElement);first();html();find(#myOtherElement);first();attr(myAttribute);find(#myElement);first();html(ELEMENT CONTENTS TO COPY, ATTRIBUTE VALUE TO COPY);");
+        expect(mockedJQ.getCalls()).toEqual("find(#myOtherElement);html();find(#myOtherElement);attr(myAttribute);find(#myElement);first();html(ELEMENT CONTENTS TO COPY, ATTRIBUTE VALUE TO COPY);");
     });
 
     it("should set value into an element's attribute.", function() {
         expect(set.handle(mockedJQ.instance, "set(el(\"#myElement\", \"myAttr\"), \"${0}, ${1}\", el(\"#myOtherElement\"), el(\"#myOtherElement\", \"myAttribute\"))", { window: win, document: mockedDoc.instance })).toEqual({ handled: true, stop: false});
-        expect(mockedJQ.getCalls()).toEqual("find(#myOtherElement);first();html();find(#myOtherElement);first();attr(myAttribute);find(#myElement);first();attr(myAttr, ELEMENT CONTENTS TO COPY, ATTRIBUTE VALUE TO COPY);");
+        expect(mockedJQ.getCalls()).toEqual("find(#myOtherElement);html();find(#myOtherElement);attr(myAttribute);find(#myElement);first();attr(myAttr, ELEMENT CONTENTS TO COPY, ATTRIBUTE VALUE TO COPY);");
     });
 
     it("should set value into an element (ignoring regex).", function() {

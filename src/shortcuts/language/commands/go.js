@@ -36,7 +36,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
       throw { message: "Invalid text strategy. Something is wrong!" };
     }
     url = textStrategy.get(url, values);
-    return locationHandler.change(false, context.window, url);
+    return locationHandler.change(isNewWindow, context.window, url);
   }
 
   function canHandle (statement, context) {

@@ -1,4 +1,5 @@
 // A low budget way to mock jquery - can be replaced if mocking needs get more complex.
+// TODO: replace this - it is getting too complex.
 define(function(result) {
   "use strict";
   var calls = "";
@@ -129,6 +130,12 @@ define(function(result) {
       }
     }
 
+    function mockEach (fn) {
+      var instance = getInstance()[0];
+      instance.isInEach = true;
+      fn.call(instance);
+    }
+
     // Mock an array that also appears to act as a single element
     function getInstance() {
       var result = [{
@@ -147,7 +154,8 @@ define(function(result) {
           hide: mockHide,
           contents: mockContents,
           eq: mockEq,
-          find: mockFind
+          find: mockFind,
+          each: mockEach
       }];
 
       result.first = mockFirst;
@@ -164,10 +172,13 @@ define(function(result) {
       result.contents = mockContents;
       result.eq = mockEq;
       result.find = mockFind;
+      result.each = mockEach;
       return result;
     }
 
-    if(shouldBeFound || isMockedDoc(query)) {
+    if(query && query.isInEach) {
+      return query;
+    } else if(shouldBeFound || isMockedDoc(query)) {
       return getInstance();
     }
   }

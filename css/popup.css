@@ -117,7 +117,7 @@ textarea.full, select.full, input.full {
 }
 
 textarea.tall {
-	height: 20rem;
+	height: 15rem;
 }
 
 label > * {

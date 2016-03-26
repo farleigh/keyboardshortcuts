@@ -3,30 +3,30 @@
   <h3 data-ng-show="key.sequence || key.name">{{key.sequence}}: {{key.name}}</h3>
   <div>
     <label>URL Expression
-      <input class="extra-wide" type="text" name="url_expression" placeholder="Regular expression that matches the page's URL" data-ng-model="shortcuts.cache.key.urlExpression" data-ng-blur="shortcuts.saveEdit()" />
+      <input class="extra-wide" type="text" name="url_expression" placeholder="Regular expression that matches the page URL. Empty is all websites." data-ng-model="shortcuts.cache.key.urlExpression" data-ng-blur="shortcuts.saveEdit()" data-ng-keydown="shortcuts.handleEditKeyPress($event)" />
     </label>
   </div>
   <div>
     <label>Key Sequence
-      <input class="extra-wide" type="text" name="key_sequence" placeholder="Key sequence" data-ng-model="shortcuts.cache.key.sequence" data-ng-change="shortcuts.saveEdit()" />
+      <input class="extra-wide" type="text" name="key_sequence" placeholder="Key sequence (e.g. alt+s)" data-ng-model="shortcuts.cache.key.sequence" data-ng-change="shortcuts.saveEdit()" data-ng-keydown="shortcuts.handleEditKeyPress($event)" />
     </label>
   </div>
   <div>
     <label>Description
-      <input class="extra-wide" type="text" name="name" placeholder="Human Readable Description" data-ng-model="shortcuts.cache.key.name" data-ng-change="shortcuts.saveEdit()" />
+      <input class="extra-wide" type="text" name="name" placeholder="Human Readable Description" data-ng-model="shortcuts.cache.key.name" data-ng-change="shortcuts.saveEdit()" data-ng-keydown="shortcuts.handleEditKeyPress($event)" />
     </label>
   </div>
   <div>
     <label>Run When
-      <input class="extra-wide" type="text" name="when" placeholder="If provided, expression must evaluate to non-falsy value" data-ng-model="shortcuts.cache.key.when" data-ng-change="shortcuts.saveEdit()" />
+      <input class="extra-wide" type="text" name="when" placeholder="Expression to control when actions are run. Always run if empty." data-ng-model="shortcuts.cache.key.when" data-ng-change="shortcuts.saveEdit()" data-ng-keydown="shortcuts.handleEditKeyPress($event)" />
     </label>
   </div>
   <div>
     <label>Actions
-      <textarea class="full tall code" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()"></textarea>
+      <textarea class="full tall code" name="query" placeholder="Actions to run" data-ng-model="shortcuts.cache.key.expression" data-ng-change="shortcuts.saveEdit()" data-ng-keydown="shortcuts.handleEditKeyPress($event)"></textarea>
     </label>
   </div>
-  <div style="margin-top: 2rem">
+  <div style="margin-top: 1rem">
     <div class="u-pull-left" style="margin-right: 2rem;">
       <button class="button button-trimmed button-primary" data-ng-click="shortcuts.saveAndClose()">Save</button>
     </div>

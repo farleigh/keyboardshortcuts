@@ -3,21 +3,31 @@ define("elementRetriever", function() {
 
   var currentPointRegex = /^\s*(?:current-element|)\s*$/i;
 
-  // Get the element
+  // Get the first matching element
   function getElement (jq, query, context) {
+    var all = getAllElements(jq, query, context);
+    if(all && all.length) {
+      return all.first();
+    }
+  }
+
+  // Get all matching elements in a given document. Does not look at iframes
+  // unless there is no matching elements in the document.
+  function getAllElements (jq, query, context) {
     var doc = context && context.document;
-    var el = queryForElement(jq, jq(doc), query, context);
+    var el = queryForElements(jq, jq(doc), query, context);
     // If element does not exist in the main page, check any iframes.
     if(!el) {
       // Note: Querying within iframes may blow up if the iframe is
       // from a different URL. There is nothing I can do about this.
       el = queryEach(jq("iframe"), function (element) {
-        return queryForElement(jq, element.contents(), query, context);
+        return queryForElements(jq, element.contents(), query, context);
       });
     }
     return el;
   }
 
+  // Invoke the find function on each element in list elements
   function queryEach(elements, find) {
     var el, i = 0;
     if(elements && elements.length) {
@@ -30,8 +40,8 @@ define("elementRetriever", function() {
     }
   }
 
-  // Query for the element
-  function queryForElement (jq, root, query, context) {
+  // Query for the element using query or by using the user's current position.
+  function queryForElements (jq, root, query, context) {
     var el;
     if(currentPointRegex.test(query)) {
       el = getCurrentElement(jq, context.document, context.position);
@@ -39,7 +49,7 @@ define("elementRetriever", function() {
       el = root.find(query);
     }
     if(el && el.length) {
-      return el.first();
+      return el;
     }
   }
 
@@ -52,6 +62,7 @@ define("elementRetriever", function() {
   }
 
   return {
-    get: getElement
+    get: getElement,
+    getAllInDocument: getAllElements
   };
 });

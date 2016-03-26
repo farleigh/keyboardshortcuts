@@ -90,6 +90,15 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
       return copy;
     }
 
+    // Key listener
+    function handleEditKeyPress(event) {
+      if(event.keyCode === 83 && event.altKey) {
+        saveAndClose();
+      } else if (event.keyCode === 27 && event.altKey) {
+        closeEdit();
+      }
+    }
+
     // Edit helpers
 
     // Returns true if we are currently editing a key
@@ -298,6 +307,7 @@ define("controller", ["tabSpammer"], function (tabSpammer) {
     vm.openImportKeys = openImportKeys;
     vm.closeImportKeys = closeImportKeys;
     vm.importKeys = importKeys;
+    vm.handleEditKeyPress = handleEditKeyPress;
 
   };
 });

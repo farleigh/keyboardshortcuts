@@ -12,9 +12,9 @@
   <div style="margin: 2rem;" class="container">
     <div>
       <div class="u-pull-left" style="margin-right: 1rem">
-        <img src="images/icon128.png" alt="KS" />
+        <img src="images/icon64.png" alt="KS" />
       </div>
-      <div style="padding-top: 50px;">
+      <div style="padding-top: 25px;">
         <h1>keyboard shortcuts</h1>
       </div>
       <div class="u-cf"></div>
@@ -36,7 +36,7 @@
       </div>
       <div class="error" id="importError" data-ng-show="shortcuts.importError">{{shortcuts.importError}}</div>
       <div class="success" id="importSuccess" data-ng-show="shortcuts.importSuccess">{{shortcuts.importSuccess}}</div>
-      <div>
+      <div style="margin-top: 2rem">
         <div class="u-pull-left">
           <button class="button button-trimmed button-primary" data-ng-click="shortcuts.importKeys($event)" title="Import shortcut keys from a url">Import</button>
         </div>
@@ -77,7 +77,7 @@
     </div>
     <footer style="margin-top: 2rem">
       <em class="u-pull-left">KeyboardShortcuts v{{shortcuts.version}}</em>
-      <a class="u-pull-right" href="https://github.com/farleigh/keyboardshortcuts" target="_new">More Information</a>
+      <a class="u-pull-right" href="https://github.com/farleigh/keyboardshortcuts/wiki" target="_new">More Information</a>
     </footer>
   </div>
   <script src="js/3p/almond-min.js"></script>

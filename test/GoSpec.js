@@ -25,7 +25,7 @@ define(["go", "test/lib/mocked-jq", "test/lib/mocked-window", "test/lib/mocked-d
 
     it("should go to a templated url while getting data from elements.", function() {
       expect(go.handle(mockedJQ.instance, "go(false, \"/relativeLocation/${0}/${1}/${2}?query=${3}\", el(\"element0\"), el(\"element1\", \"attribute1\"), el(\"element2\", /ELEMENT/i), el(\"element3\", \"attribute2\", /VALUE TO COPY/))", { window: win, document: mockedDoc.instance })).toEqual({ handled: true, stop: false});
-      expect(mockedJQ.getCalls()).toEqual("find(element0);first();html();find(element1);first();attr(attribute1);find(element2);first();html();find(element3);first();attr(attribute2);");
+      expect(mockedJQ.getCalls()).toEqual("find(element0);html();find(element1);attr(attribute1);find(element2);html();find(element3);attr(attribute2);");
       expect(win.location.href).toEqual("/relativeLocation/ELEMENT%20CONTENTS%20TO%20COPY/ATTRIBUTE%20VALUE%20TO%20COPY/ELEMENT?query=VALUE%20TO%20COPY");
     });
 
