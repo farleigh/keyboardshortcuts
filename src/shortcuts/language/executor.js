@@ -1,14 +1,29 @@
 /*global define */
 define("executor", ["contentRetriever"], function (contentRetriever) {
 
+  var notRegex = /not\((.*)\)/i;
+
+  // Returns true if value is any of the possible empty-falsy values.
+  function isValueFalsy(value) {
+    return value === "" || value === undefined || value === null;
+  }
+
   // Return true if the expression should be run.
   function isTime (jq, when, context) {
-    var result;
+    var result, matches, isNegated = false;
     if(!when) {
       return true;
     }
+    matches = notRegex.exec(when);
+    if(matches) {
+      when = matches[1];
+      isNegated = true;
+    }
+
     result = contentRetriever.getContent(jq, when, context);
-    return result !== "" && result !== undefined && result !== null;
+    // If is negated then result must be at least one of the falsy values. If not negated
+    // then result cannot be any of the falsy values.
+    return (isNegated && isValueFalsy(when)) || (!isNegated && !isValueFalsy(when));
   }
 
   function execute (jq, when, handlers, statements, context) {

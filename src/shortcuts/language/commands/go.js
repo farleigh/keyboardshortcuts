@@ -3,7 +3,7 @@ define("go", ["locationHandler", "templatedTextStrategy", "contentRetriever", "r
   "use strict";
 
   var regex = /^go\s*\(\s*(true|false)\s*,\s*"([^"]+)"(?:\s*,\s*(.*))?\s*\)$/i;
-  var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|)/gi;
+  var queryRegex = /[a-z]+\(.*?\)(?=(?:\s*,\s*)|$)/gi;
 
   // Get all values
   function getValues (jq, queries, context) {
